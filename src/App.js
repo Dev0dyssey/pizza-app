@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "./history";
+import LogIn from "./Components/LogIn";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [pizza] = useState("Pepperoni");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>An amazing pizza rating App!</h1>
+      <Router history={history}>
+        <Switch>
+          <Route path="/" exact component = {LogIn}/>
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
