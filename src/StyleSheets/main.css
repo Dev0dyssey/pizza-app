@@ -1,0 +1,6 @@
+body {
+    background-size: cover;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url(https://bit.ly/2TotWK6);
+    background-attachment: fixed;
+}

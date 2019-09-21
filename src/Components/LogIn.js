@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 const LogIn = () => {
   const pizzaUser = {
@@ -17,7 +18,8 @@ const LogIn = () => {
   };
 
   return (
-    <div>
+    <div className="jumbotron mt-5">
+      <h1>An amazing pizza rating App!</h1>
       <form>
         <div className="form-group">
           <label for="examplePizza">Pizza user Handle</label>
@@ -59,10 +61,12 @@ const LogIn = () => {
         { click ? welcomeMsg() : "Nope" }
       </button> */}
       </form>
+      <Link to={{pathname: '/main', aboutProps: {pizzaUser} }}>
       <button className="btn btn-primary" onClick={() => setClick(true)}>
         
         {click ? welcomeMsg() : "Enter the App"}
       </button>
+      </Link>
     </div>
   );
 };

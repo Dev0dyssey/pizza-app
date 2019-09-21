@@ -1,0 +1,18 @@
+.bgImg {
+    height: 75vh;
+    background-repeat: no-repeat;
+    background-image: url(https://bit.ly/2kVUKlz);
+    background-size: 300px 350px;
+    background-position-x: 100%;
+    background-position-y: 0%;
+}
+
+.jumbotron {
+    background-color: hsla(120, 100%, 50%, 0);
+}
+
+.background-pizza {
+    position: relative;
+    right: 5%;
+    top: 10%;
+}
