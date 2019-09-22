@@ -7,7 +7,11 @@ import MainPage from "./Components/MainPage";
 // import './StyleSheets/main.css';
 
 const App = () => {
-  const [pizza] = useState("Pepperoni");
+  const [user, setUser] = useState({tag: "Pizza", pizza: "More Pizza" });
+  const getUser = ( newUser ) => {
+    const userNew = newUser;
+    setUser(userNew);
+  };
 
   return (
     <div className="container landing">
@@ -17,8 +21,8 @@ const App = () => {
           <Router history={history}>
             <Switch>
               <Route path="/" exact component={Landing} />
-              <Route path="/login" exact component={LogIn} />
-              <Route path="/main" exact component={MainPage} />
+              <Route path="/login" exact render={(props) => <LogIn {...props} getUser = {getUser} />} />
+              <Route path="/main" exact render={(props) => <MainPage {...props} user = {user} />} />
             </Switch>
           </Router>
         </div>

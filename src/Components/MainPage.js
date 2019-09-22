@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "../UIComponents/NavBar";
 
 const MainPage = (props) => {
   const pizzas = ["Avocado", "Pepperoni", "Hawaiian", "HOT"];
-  console.log("Test", props.location.aboutProps)
 
   const generateList = () => {
     pizzas.sort();
@@ -18,7 +17,7 @@ const MainPage = (props) => {
             />
             <div className="card-body">
               <h3 className="card-title">{pizza}</h3>
-              <p className="card-text">Some info about this pizza</p>
+              <p className="card-text">Some info about this pizza {props.user.tag}</p>
               <a href="#" className="btn btn-primary">
                 Read more and Rate
               </a>

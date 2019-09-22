@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
-const LogIn = () => {
+const LogIn = ( props ) => {
   const pizzaUser = {
-    tag: "Pizza Bro",
-    pizza: "Best Pizza any pizza"
+    tag: "",
+    pizza: ""
   };
   const [user, setDetails] = useState(pizzaUser);
-  const [click, setClick] = useState(false);
-
-  const welcomeMsg = () => {
-    return (
-      <div>
-        Welcome: {user.tag} <br /> Let's look at: {user.pizza}
-      </div>
-    );
-  };
 
   return (
     <div className="jumbotron mt-5">
@@ -61,10 +52,9 @@ const LogIn = () => {
         { click ? welcomeMsg() : "Nope" }
       </button> */}
       </form>
-      <Link to={{pathname: '/main', aboutProps: {pizzaUser} }}>
-      <button className="btn btn-primary" onClick={() => setClick(true)}>
-        
-        {click ? welcomeMsg() : "Enter the App"}
+      <Link to={'/main'}>
+      <button className="btn btn-primary" onClick={() => props.getUser(user)}>
+        Enter
       </button>
       </Link>
     </div>
