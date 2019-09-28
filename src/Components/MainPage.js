@@ -1,8 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../UIComponents/NavBar";
+import PizzaRating from "./Modals/PizzaRating";
 
-const MainPage = (props) => {
-  const pizzas = ["Avocado", "Pepperoni", "Hawaiian", "HOT"];
+const MainPage = props => {
+
+  const [comment, setComment] = useState("Placeholder Comment");
+  const [pizzaName, setPizza] = useState("Placeholder Pizza");
+
+  const pizzas = [
+    {
+      name: "Avocado",
+      restaurant: "Domino's",
+      rating: 1,
+      comment: "Avocado Pizza...really?"
+    },
+    {
+      name: "Pepperoni",
+      restaurant: "Papa John's",
+      rating: 3,
+      comment: "Cooking with sizzle"
+    },
+    {
+      name: "Hawaiian",
+      restaurant: "Pizza Hut",
+      rating: 2,
+      comment: "PINEAPPLES?!"
+    },
+    {
+      name: "HOT",
+      restaurant: "Pizza Place",
+      rating: 5,
+      comment: "Nostrils burner!"
+    }
+  ];
+
+  const ratingDetails = (val) =>{
+    setComment(val.comment);
+    setPizza(val.name)
+  };
 
   const generateList = () => {
     pizzas.sort();
@@ -16,11 +51,30 @@ const MainPage = (props) => {
               alt={pizza}
             />
             <div className="card-body">
-              <h3 className="card-title">{pizza}</h3>
-              <p className="card-text">Some info about this pizza {props.user.tag}</p>
-              <a href="#" className="btn btn-primary">
+              <h3 className="card-title">
+                {pizza.name}: {pizza.rating}
+              </h3>
+              <div className="card-text">
+                <strong>Location:</strong> {pizza.restaurant}
+                <br />
+              </div>
+              <br />
+              <button
+                onClick={() => ratingDetails(pizza)}
+                className="btn btn-primary"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
                 Read more and Rate
-              </a>
+              </button>
+              <div
+                className="modal fade"
+                id="exampleModal"
+                tabIndex="-1"
+                role="dialog"
+              >
+                <PizzaRating comment={comment} pizza={pizzaName} />
+              </div>
             </div>
           </div>
         </div>
@@ -32,7 +86,7 @@ const MainPage = (props) => {
     <>
       <NavBar />
       <h3>List of ranked pizzas(no specific order)</h3>
-      <br/>
+      <br />
       <div className="row">{generateList()}</div>
     </>
   );
