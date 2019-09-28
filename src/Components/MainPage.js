@@ -1,13 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import NavBar from "../UIComponents/NavBar";
 import PizzaRating from "./Modals/PizzaRating";
+import NewPizza from "./Modals/NewPizza";
 
 const MainPage = props => {
-
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
-
-  const pizzas = [
+  const [pizzas, addPizza] = useState([
     {
       name: "Avocado",
       restaurant: "Domino's",
@@ -32,11 +31,15 @@ const MainPage = props => {
       rating: 5,
       comment: "Nostrils burner!"
     }
-  ];
+  ]);
 
-  const ratingDetails = (val) =>{
+  const ratingDetails = val => {
     setComment(val.comment);
-    setPizza(val.name)
+    setPizza(val.name);
+  };
+
+  const newPizza = val => {
+    addPizza(pizzas => [...pizzas, val]);
   };
 
   const generateList = () => {
@@ -88,6 +91,16 @@ const MainPage = props => {
       <h3>List of ranked pizzas(no specific order)</h3>
       <br />
       <div className="row">{generateList()}</div>
+      <button
+        className="btn btn-primary"
+        data-toggle="modal"
+        data-target="#newPizza"
+      >
+        Add Pizza!
+      </button>
+      <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
+        <NewPizza newPizza={newPizza} />
+      </div>
     </>
   );
 };

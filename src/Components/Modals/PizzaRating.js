@@ -85,7 +85,7 @@ const PizzaRating = props => {
             >
               Close
             </button>
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-primary" data-dismiss="modal">
               Save changes
             </button>
           </div>
