@@ -46,7 +46,7 @@ const MainPage = props => {
     pizzas.sort();
     return pizzas.map(pizza => {
       return (
-        <div className="col-4">
+        <div className="col-md-4 col-sm-1">
           <div className="card" style={{ marginBottom: "1rem" }}>
             <img
               className="card-img-top"
