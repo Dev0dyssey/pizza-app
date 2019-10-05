@@ -55,6 +55,15 @@ const NewPizza = props => {
                     }}
                   ></input>
                 </div>
+                <div className="input-group mb-3">
+                  <div className="custom-file">
+                    <input type="file" className="custom-type-input" id="inputGroup" aria-describedby="inputGroupAddon"/>
+                    <label className="custom-file-label" for="inputGroup">Select a Photo</label>
+                  </div>
+                  <div className="input-group-append">
+                    <span className="input-group-text" id="photoInput">Upload</span>
+                  </div>
+                </div>
               </div>
               <div className="form-group">
                 <label for="pizzaComment">Comment(s)</label>

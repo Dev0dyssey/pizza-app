@@ -43,10 +43,10 @@ const MainPage = props => {
   };
 
   const generateList = () => {
-    pizzas.sort();
-    return pizzas.map(pizza => {
+    pizzas.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
+    return pizzas.map((pizza, index) => {
       return (
-        <div className="col-md-4 col-sm-1">
+        <div className="col-md-4 col-sm-1" key={index}>
           <div className="card" style={{ marginBottom: "1rem" }}>
             <img
               className="card-img-top"
@@ -88,7 +88,7 @@ const MainPage = props => {
   return (
     <>
       <NavBar />
-      <h3>List of ranked pizzas(no specific order)</h3>
+      <h3>List of ranked pizzas</h3>
       <br />
       <div className="row">{generateList()}</div>
       <button

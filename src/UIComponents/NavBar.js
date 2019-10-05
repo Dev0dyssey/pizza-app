@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg pl-0 navbar-light">
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarToggler"
@@ -13,9 +13,9 @@ const NavBar = () => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarToggler">
+      <div className="collapse navbar-collapse" id="navbarToggler">
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <a className="nav-link active" href="#">
@@ -44,32 +44,6 @@ const NavBar = () => {
         </ul>
       </div>
     </nav>
-    /*
-    <nav className="nav">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            ALL PIZZAS
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            New Pizzas
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            Other meals
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            The twilight zone
-          </a>
-        </li>
-      </ul>
-    </nav>
-    */
   );
 };
 
