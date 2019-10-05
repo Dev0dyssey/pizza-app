@@ -3,33 +3,46 @@ import React from "react";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand pl-0">
-      <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <a className="nav-link active" href="#">
-            ALL PIZZAS
-            <i className="fas fa-pizza-slice ml-3"></i>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            New Pizzas
-            <i className="fas fa-fire ml-3"></i>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            Other meals
-            <i className="fas fa-utensils ml-3"></i>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            The twilight zone
-            <i className="fas fa-biohazard ml-3"></i>
-          </a>
-        </li>
-      </ul>
+    <nav className="navbar navbar-expand-lg pl-0 navbar-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarToggler"
+        aria-controls="navbarToggler"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <a className="nav-link active" href="#">
+              ALL PIZZAS
+              <i className="fas fa-pizza-slice ml-3"></i>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              New Pizzas
+              <i className="fas fa-fire ml-3"></i>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Other meals
+              <i className="fas fa-utensils ml-3"></i>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              The twilight zone
+              <i className="fas fa-biohazard ml-3"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
     /*
     <nav className="nav">

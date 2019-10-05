@@ -92,7 +92,7 @@ const MainPage = props => {
       <br />
       <div className="row">{generateList()}</div>
       <button
-        className="btn btn-primary"
+        className="btn btn-primary col text-center"
         data-toggle="modal"
         data-target="#newPizza"
       >
