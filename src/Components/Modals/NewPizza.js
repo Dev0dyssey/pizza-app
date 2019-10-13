@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 
 const NewPizza = props => {
+
   const [newPizza, addPizza] = useState({
     name: "",
+    photo: "",
     restaurant: "",
     rating: "",
     comment: ""
   });
+
+  const handleChange = e => {
+    const photo = URL.createObjectURL(e.target.files[0]);
+    addPizza(newPizza => {
+      return {...newPizza, photo}
+    });
+  }
 
   return (
     <>
@@ -57,11 +66,7 @@ const NewPizza = props => {
                 </div>
                 <div className="input-group mb-3">
                   <div className="custom-file">
-                    <input type="file" className="custom-type-input" id="inputGroup" aria-describedby="inputGroupAddon"/>
-                    <label className="custom-file-label" for="inputGroup">Select a Photo</label>
-                  </div>
-                  <div className="input-group-append">
-                    <span className="input-group-text" id="photoInput">Upload</span>
+                    <input type="file" className="form-control-file" id="inputGroup" aria-describedby="inputGroupAddon" onChange={handleChange}/>
                   </div>
                 </div>
               </div>

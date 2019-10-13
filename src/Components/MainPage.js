@@ -9,24 +9,28 @@ const MainPage = props => {
   const [pizzas, addPizza] = useState([
     {
       name: "Avocado",
+      photo: "https://bit.ly/2mtvjbu",
       restaurant: "Domino's",
       rating: 1,
       comment: "Avocado Pizza...really?"
     },
     {
       name: "Pepperoni",
+      photo: "https://bit.ly/2mtvjbu",
       restaurant: "Papa John's",
       rating: 3,
       comment: "Cooking with sizzle"
     },
     {
       name: "Hawaiian",
+      photo: "https://bit.ly/2mtvjbu",
       restaurant: "Pizza Hut",
       rating: 2,
       comment: "PINEAPPLES?!"
     },
     {
       name: "HOT",
+      photo: "https://bit.ly/2mtvjbu",
       restaurant: "Pizza Place",
       rating: 5,
       comment: "Nostrils burner!"
@@ -46,13 +50,14 @@ const MainPage = props => {
     pizzas.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
     return pizzas.map((pizza, index) => {
       return (
-        <div className="col-md-4 col-sm-1" key={index}>
+        <div className="col-md-4 col-sm-1 d-flex" key={index}>
           <div className="card" style={{ marginBottom: "1rem" }}>
-            <img
-              className="card-img-top"
-              src="https://bit.ly/2mtvjbu"
-              alt={pizza}
-            />
+              <img
+                className="card-img-top"
+                src={pizza.photo}
+                alt={pizza}
+                style={{ width: "100%", height: "auto"}}
+              />
             <div className="card-body">
               <h3 className="card-title">
                 {pizza.name}: {pizza.rating}
