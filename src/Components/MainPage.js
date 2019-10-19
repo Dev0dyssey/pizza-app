@@ -2,11 +2,20 @@ import React, { useState, useContext, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
 import PizzaRating from "./Modals/PizzaRating";
 import NewPizza from "./Modals/NewPizza";
+import app from '../base';
 
 import { AuthContext } from '../Auth';
 
 const MainPage = props => {
   const {currentUser} = useContext(AuthContext);
+  const getUserData = () => {
+    let ref = app.database().ref('/');
+    ref.on('value', snapshot => {
+      const test = snapshot.val();
+      console.log(`DATA IS: ${test}`)
+    });
+  }
+
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzas, addPizza] = useState([
@@ -94,7 +103,7 @@ const MainPage = props => {
   };
 
   useEffect(() => {
-    console.log({currentUser}.currentUser.email)
+    console.log({currentUser}.currentUser.email);
   }, [])
 
   return (

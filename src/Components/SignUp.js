@@ -20,18 +20,34 @@ const SignUp = ({ history }) => {
   );
 
   return (
-    <div>
-      <h1>Sign Up</h1>
+    <div className="jumbotron mt-5">
+      <h1>Create a user profile</h1>
       <form onSubmit={handleSignup}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Sign Up</button>
+        <div className="form-group">
+          <label for="examplePizza">Email</label>
+          <input
+            name="email"
+            type="email"
+            className="form-control"
+            id="examplePizza"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div className="form-group">
+          <label for="pizzaUserPassword">Password</label>
+          <input
+            name="password"
+            type="password"
+            className="form-control"
+            id="pizzaUserPassword"
+            placeholder="Choose a password"
+          />
+        </div>
+        
+          <button className="btn btn-primary">
+            Create
+          </button>
+        
       </form>
     </div>
   );
