@@ -1,67 +1,73 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useCallback, useContext } from "react";
+import { withRouter, Redirect, Link } from "react-router-dom";
+import app from "../base";
+import { AuthContext } from "../Auth";
 
-const LogIn = ( props ) => {
-  const pizzaUser = {
-    tag: "",
-    pizza: ""
-  };
-  const [user, setDetails] = useState(pizzaUser);
+const LogIn = ({ history }) => {
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        history.push("/main");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/main" />;
+  }
 
   return (
     <div className="jumbotron mt-5">
       <h1>An amazing pizza rating App!</h1>
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label for="examplePizza">Pizza user Handle</label>
+          <label for="examplePizza">Pizza user email</label>
           <input
-            type="text"
+            name="email"
+            type="email"
             className="form-control"
             id="examplePizza"
-            aria-describedby="pizzaHelp"
-            placeholder="Enter Pizza user Tag"
-            onChange={e => {
-              const tag = e.target.value;
-              setDetails(user => {
-                return { ...user, tag };
-              });
-            }}
+            placeholder="Enter Pizza user Email"
           />
           <small id="emailHelp" className="form-text text-muted">
             We MIGHT share your pizza user tag (*hint* Pineapples are evil).
           </small>
         </div>
         <div className="form-group">
-          <label for="examplePizzaType">Best Pizza</label>
+          <label for="pizzaUserPassword">Password</label>
           <input
-            type="text"
+            name="password"
+            type="password"
             className="form-control"
-            id="examplePizzaType"
-            placeholder="Pepperoni is good"
-            onChange={e => {
-              const pizza = e.target.value;
-              setDetails(user => {
-                return { ...user, pizza };
-              });
-            }}
+            id="pizzaUserPassword"
+            placeholder="Please enter your password"
           />
         </div>
 
-        {/* <button className="btn btn-primary" onClick={() => setClick(true)}>
-        Enter the App
-        { click ? welcomeMsg() : "Nope" }
-      </button> */}
+        <button type="submit" className="btn btn-success">
+          Enter
+        </button>
+        <Link to={"/signup"}>
+          <button className="btn btn-primary" style={{ marginLeft: "0.5rem" }}>
+            Sign up
+          </button>
+        </Link>
       </form>
-      <Link to={'/main'}>
-      <button className="btn btn-primary" onClick={() => props.getUser(user)}>
-        Enter
-      </button>
-      </Link>
     </div>
   );
 };
 
-export default LogIn;
+export default withRouter(LogIn);
 
 // Sandbox
 /*

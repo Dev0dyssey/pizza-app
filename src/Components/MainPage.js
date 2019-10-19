@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
 import PizzaRating from "./Modals/PizzaRating";
 import NewPizza from "./Modals/NewPizza";
 
+import { AuthContext } from '../Auth';
+
 const MainPage = props => {
+  const {currentUser} = useContext(AuthContext);
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzas, addPizza] = useState([
@@ -89,6 +92,10 @@ const MainPage = props => {
       );
     });
   };
+
+  useEffect(() => {
+    console.log({currentUser}.currentUser.email)
+  }, [])
 
   return (
     <>

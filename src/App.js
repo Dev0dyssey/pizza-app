@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import { Router, Route } from "react-router-dom";
 import history from "./history";
 import Landing from './Components/LandingPage';
 import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
+import { AuthProvider } from './Auth';
+import PrivateRoute from './PrivateRoute';
+import SignUp from './Components/SignUp';
 // import './StyleSheets/main.css';
 
 const App = () => {
-  const [user, setUser] = useState({tag: "Pizza", pizza: "More Pizza" });
-  const getUser = ( newUser ) => {
-    const userNew = newUser;
-    setUser(userNew);
-  };
-
   return (
     <div className="container landing">
       <div className="row">
         <div className="col-2"></div>
         <div className="col-8 min-vh-100">
-          <Router history={history}>
-            <Switch>
-              <Route path="/" exact component={Landing} />
-              <Route path="/login" exact render={(props) => <LogIn {...props} getUser = {getUser} />} />
-              <Route path="/main" exact render={(props) => <MainPage {...props} user = {user} />} />
-            </Switch>
-          </Router>
+          <AuthProvider>
+            <Router history={history}>
+                <Route path="/" exact component={Landing} />
+                <Route path="/login" exact component={LogIn} />
+                <Route path="/signup" exact component={SignUp} />
+                <PrivateRoute path="/main" exact component={MainPage} />
+            </Router>
+          </AuthProvider>
         </div>
         <div className="col-2"></div>
       </div>
