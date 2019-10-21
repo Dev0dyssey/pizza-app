@@ -3,8 +3,11 @@ import NavBar from "../UIComponents/NavBar";
 import PizzaRating from "./Modals/PizzaRating";
 import NewPizza from "./Modals/NewPizza";
 import app from '../base';
+import { db } from '../base';
 
 import { AuthContext } from '../Auth';
+
+const testArr = [];
 
 const MainPage = props => {
   const {currentUser} = useContext(AuthContext);
@@ -103,7 +106,13 @@ const MainPage = props => {
   };
 
   useEffect(() => {
-    console.log({currentUser}.currentUser.email);
+    db.collection('pizza-collection').get().then(querySnapshot => {
+      querySnapshot.forEach((doc) => {
+        testArr.push(doc.data())
+        console.log(testArr);
+        // console.log(doc.id, "IS SOME DATA =>", doc.data());
+      });
+    });
   }, [])
 
   return (

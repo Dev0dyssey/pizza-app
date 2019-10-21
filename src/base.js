@@ -27,17 +27,5 @@ const app = firebase.initializeApp( {
 
   const db = app.firestore();
 
-  db.collection('pizza-data').add({
-    pizza: "Spicy hot double pepperoni 7",
-    origin: "Pizza palace",
-    comment: "Some delicious pizza!",
-    rating: "5",
-    pizza_image: "https://bit.ly/2mtvjbu"
-  }).then(() => {
-    console.log("DATA CREATED!");
-  }).catch((error) => {
-    console.log(`Something went wrong ${error}`)
-  });
-
   export { db }
   export default app;
