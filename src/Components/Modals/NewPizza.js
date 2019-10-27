@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { db } from "../../base";
 
 const NewPizza = props => {
+  // New pizza object{} that gets passed to the database to create new entries
   const [newPizza, addPizza] = useState({
     name: "",
     photo: "",
@@ -13,7 +14,6 @@ const NewPizza = props => {
   const handleSubmit = () => {
     db.collection("pizza-collection")
       .add(newPizza)
-      .then(console.log("NEW PIZZA ADDED", newPizza));
   };
 
   return (
