@@ -28,21 +28,17 @@ const MainPage = props => {
     return pizzaList.map((pizza, index) => {
       return (
         <div className="col-md-4 col-sm-1 d-flex" key={index}>
-          <div className="card" style={{ marginBottom: "1rem" }}>
+          <div className="card text-white" style={{ marginBottom: "1rem" }}>
               <img
                 className="card-img-top"
                 src={pizza.photo}
                 alt={pizza}
-                style={{ width: "100%", height: "auto"}}
+                style={{ width: "100%", height: "100%"}}
               />
-            <div className="card-body d-flex flex-column">
+            <div className="card-img-overlay d-flex flex-column">
               <h3 className="mt-auto card-title">
                 {pizza.name}: {pizza.rating}
               </h3>
-              <div className="card-text">
-                <strong>Location:</strong> {pizza.restaurant}
-                <br />
-              </div>
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
