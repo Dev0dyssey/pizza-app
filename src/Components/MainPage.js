@@ -36,7 +36,7 @@ const MainPage = props => {
                 style={{ width: "100%", height: "auto"}}
               />
             <div className="card-body d-flex flex-column">
-              <h3 className="card-title">
+              <h3 className="mt-auto card-title">
                 {pizza.name}: {pizza.rating}
               </h3>
               <div className="card-text">
@@ -46,7 +46,7 @@ const MainPage = props => {
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
-                className="mt-auto btn btn-primary"
+                className="btn btn-primary"
                 data-toggle="modal"
                 data-target="#exampleModal"
               >
