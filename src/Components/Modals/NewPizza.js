@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { db } from "../../base";
 
 const NewPizza = props => {
-
   const [newPizza, addPizza] = useState({
     name: "",
     photo: "",
@@ -10,12 +10,11 @@ const NewPizza = props => {
     comment: ""
   });
 
-  const handleChange = e => {
-    const photo = URL.createObjectURL(e.target.files[0]);
-    addPizza(newPizza => {
-      return {...newPizza, photo}
-    });
-  }
+  const handleSubmit = () => {
+    db.collection("pizza-collection")
+      .add(newPizza)
+      .then(console.log("NEW PIZZA ADDED", newPizza));
+  };
 
   return (
     <>
@@ -65,9 +64,20 @@ const NewPizza = props => {
                   ></input>
                 </div>
                 <div className="input-group mb-3">
-                  <div className="custom-file">
+                  {/* <div className="custom-file">
                     <input type="file" className="form-control-file" id="inputGroup" aria-describedby="inputGroupAddon" onChange={handleChange}/>
-                  </div>
+                  </div> */}
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Photo"
+                    onChange={e => {
+                      const photo = e.target.value;
+                      addPizza(newPizza => {
+                        return { ...newPizza, photo };
+                      });
+                    }}
+                  ></input>
                 </div>
               </div>
               <div className="form-group">
@@ -80,8 +90,8 @@ const NewPizza = props => {
                   onChange={e => {
                     const comment = e.target.value;
                     addPizza(newPizza => {
-                      return { ...newPizza, comment}
-                    })
+                      return { ...newPizza, comment };
+                    });
                   }}
                 ></textarea>
               </div>
@@ -179,7 +189,7 @@ const NewPizza = props => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => props.newPizza(newPizza)}
+              onClick={() => handleSubmit()}
               data-dismiss="modal"
             >
               Save changes
