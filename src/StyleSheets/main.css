@@ -1,8 +1,8 @@
-.btn {
+.mainBTN {
     opacity: 0.5;
 }
 
-.btn:hover {
+.mainBTN:hover {
     opacity: 1;
 }
 
@@ -10,7 +10,7 @@
 and (min-device-width: 375px) and (max-device-width: 667px)
 and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) {
-    .btn {
+    .mainBTN {
         opacity: 1;
     }
 }
@@ -19,7 +19,7 @@ and (orientation: portrait) {
 and (min-device-width: 375px) and (max-device-width: 825px)
 and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: landscape) {
-    .btn {
+    .mainBTN {
         opacity: 1;
     }
 }

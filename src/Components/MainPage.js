@@ -42,7 +42,7 @@ const MainPage = props => {
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
-                className="mt-auto btn btn-primary"
+                className="mainBTN mt-auto btn btn-primary"
                 data-toggle="modal"
                 data-target="#exampleModal"
               >
