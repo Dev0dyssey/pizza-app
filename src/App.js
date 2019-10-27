@@ -7,7 +7,6 @@ import MainPage from "./Components/MainPage";
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
 import SignUp from './Components/SignUp';
-// import './StyleSheets/main.css';
 
 const App = () => {
   return (

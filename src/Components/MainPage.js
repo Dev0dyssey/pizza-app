@@ -4,16 +4,13 @@ import PizzaRating from "./Modals/PizzaRating";
 import NewPizza from "./Modals/NewPizza";
 import { db } from '../base';
 
+import '../StyleSheets/main.css'
+
 const MainPage = props => {
 
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
-
-  const ratingDetails = val => {
-    setComment(val.comment);
-    setPizza(val.name);
-  };
 
   useEffect(() => {
     db.collection('pizza-collection').get().then(querySnapshot => {
@@ -22,6 +19,11 @@ const MainPage = props => {
       });
     });
   }, [])
+
+  const ratingDetails = val => {
+    setComment(val.comment);
+    setPizza(val.name);
+  };
 
   const generateList = () => {
     pizzaList.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
@@ -36,17 +38,15 @@ const MainPage = props => {
                 style={{ width: "100%", height: "100%"}}
               />
             <div className="card-img-overlay d-flex flex-column">
-              <h3 className="mt-auto card-title">
-                {pizza.name}: {pizza.rating}
-              </h3>
+              <span className="badge badge-primary" style={{width: "1rem"}}>{pizza.rating}</span>
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
-                className="btn btn-primary"
+                className="mt-auto btn btn-primary"
                 data-toggle="modal"
                 data-target="#exampleModal"
               >
-                Read more and Rate
+                {pizza.name}
               </button>
               <div
                 className="modal fade"
