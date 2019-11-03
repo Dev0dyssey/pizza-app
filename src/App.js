@@ -1,12 +1,14 @@
 import React from "react";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import { AuthProvider } from './Auth';
 import history from "./history";
 import Landing from './Components/LandingPage';
+import SignUp from './Components/SignUp';
 import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
-import { AuthProvider } from './Auth';
+import NewPizzasOverview from "./Components/NewPizzaSection/NewPizzasOverview";
 import PrivateRoute from './PrivateRoute';
-import SignUp from './Components/SignUp';
+
 
 const App = () => {
   return (
@@ -16,10 +18,14 @@ const App = () => {
         <div className="col-8 min-vh-100">
           <AuthProvider>
             <Router history={history}>
+              <Switch>
                 <Route path="/" exact component={Landing} />
-                <Route path="/login" exact component={LogIn} />
-                <Route path="/signup" exact component={SignUp} />
+              </Switch>
+                <Route path="/login" component={LogIn} />
+                <Route path="/signup" component={SignUp} />
                 <PrivateRoute path="/main" exact component={MainPage} />
+                <PrivateRoute path="/main/newpizzas" exact component={NewPizzasOverview} />
+              
             </Router>
           </AuthProvider>
         </div>
