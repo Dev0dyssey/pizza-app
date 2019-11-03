@@ -17,7 +17,7 @@ const NavBar = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarToggler">
-        <ul className="nav nav-tabs">
+        <ul className="nav">
           <li className="nav-item">
             <a className="nav-link active" href="/main">
               ALL PIZZAS
