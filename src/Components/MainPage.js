@@ -35,7 +35,7 @@ const MainPage = props => {
                 className="card-img-top"
                 src={pizza.photo}
                 alt={pizza}
-                style={{ width: "100%", height: "100%"}}
+                style={{ width: "100%", height: "100%", objectFit: "cover"}}
               />
             <div className="card-img-overlay d-flex flex-column">
               <span className="badge badge-primary" style={{width: "1rem"}}>{pizza.rating}</span>
