@@ -1,4 +1,5 @@
 import React from "react";
+import '../../StyleSheets/modal.css'
 
 const PizzaRating = props => {
   return (

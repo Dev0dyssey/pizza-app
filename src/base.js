@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app';
 import "firebase/auth";
 import "firebase/firestore";
 
-const app = firebase.initializeApp( {
+const app = firebase.initializeApp({
     apiKey: "AIzaSyC3oNTsQIVZRO94jt7-1uzXQUo2C-tELio",
     authDomain: "vrate-7a0cd.firebaseapp.com",
     databaseURL: "https://vrate-7a0cd.firebaseio.com",
@@ -16,7 +16,7 @@ const app = firebase.initializeApp( {
   // Changing state persistence
   // Clears user login information once session is terminated
   // Need to login with every new session
-  app.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  app.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(function() {
     return console.log("I am working")
   })

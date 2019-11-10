@@ -8,8 +8,10 @@ const NewPizza = props => {
     photo: "",
     restaurant: "",
     rating: "",
-    comment: ""
+    comment: "",
+    added: new Date(Date.now())
   });
+
 
   const handleSubmit = () => {
     db.collection("pizza-collection")
