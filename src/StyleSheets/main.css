@@ -1,6 +1,25 @@
-body {
-    background-size: cover;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url(https://bit.ly/2TotWK6);
-    background-attachment: fixed;
+.mainBTN {
+    opacity: 0.5;
+}
+
+.mainBTN:hover {
+    opacity: 1;
+}
+
+@media screen 
+and (min-device-width: 375px) and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+    .mainBTN {
+        opacity: 1;
+    }
+}
+
+@media screen 
+and (min-device-width: 375px) and (max-device-width: 825px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+    .mainBTN {
+        opacity: 1;
+    }
 }

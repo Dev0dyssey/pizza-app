@@ -17,15 +17,15 @@ const NavBar = () => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarToggler">
-        <ul className="nav nav-tabs">
+        <ul className="nav">
           <li className="nav-item">
-            <a className="nav-link active" href="#">
+            <a className="nav-link active" href="/main">
               ALL PIZZAS
               <i className="fas fa-pizza-slice ml-3"></i>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/main/newpizzas">
               New Pizzas
               <i className="fas fa-fire ml-3"></i>
             </a>
