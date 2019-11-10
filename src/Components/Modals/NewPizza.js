@@ -66,9 +66,6 @@ const NewPizza = props => {
                   ></input>
                 </div>
                 <div className="input-group mb-3">
-                  {/* <div className="custom-file">
-                    <input type="file" className="form-control-file" id="inputGroup" aria-describedby="inputGroupAddon" onChange={handleChange}/>
-                  </div> */}
                   <input
                     type="text"
                     className="form-control"
