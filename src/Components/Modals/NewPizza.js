@@ -15,7 +15,10 @@ const NewPizza = props => {
 
   const handleSubmit = () => {
     db.collection("pizza-collection")
-      .add(newPizza)
+      .doc(newPizza.name).set(newPizza)
+      // .add(newPizza).then(docRef => {
+      //   console.log(`Document ID: ${docRef.id}}`)
+      // })
   };
 
   return (
