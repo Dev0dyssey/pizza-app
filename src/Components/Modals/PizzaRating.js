@@ -4,14 +4,16 @@ import { db } from "../../base";
 
 const PizzaRating = props => {
   // New comments state
-  const [comment, setComment] = useState([])
+  const [comment, setComment] = useState([]);
 
   const handleSubmit = () => {
-    db.collection("pizza-collection").doc("D0BUAHcrFbuVJkIdMwYy")
-    .update({comments: comment})
-    .then(() => console.log("Comment updated"))
-    .catch(error => `Something went wrong: ${error}`)
-  }
+    db.collection("pizza-collection")
+      .doc(props.pizza)
+      .collection("comments")
+      .add({ comment: comment })
+      .then(() => console.log("Comment updated"))
+      .catch(error => `Something went wrong: ${error}`);
+  };
 
   return (
     <>
@@ -86,13 +88,22 @@ const PizzaRating = props => {
                 value="option3"
               />
             </div>
+            <div>
+              <h5>Comments: </h5>
+              {/* Render out the list of existing comments coming in from the "comments" prop */}
+              <ul>
+              {props.comments.map((comment, index) => {
+                return <li key={index}>{comment.comment}</li>;
+              })}
+              </ul>
+            </div>
             <div className="input-group">
-              <textarea 
-                className="form-control" 
+              <textarea
+                className="form-control"
                 placeholder="Comments"
-                onChange={ e => {
+                onChange={e => {
                   const newComment = e.target.value;
-                  setComment(newComment)
+                  setComment(newComment);
                 }}
               ></textarea>
             </div>
