@@ -10,6 +10,7 @@ const MainPage = props => {
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
+  const [existingComments, getComments] = useState([])
   const oneDay = 24 * 60 * 60;
   const now = Math.floor(Date.now() / 1000);
 
@@ -26,6 +27,13 @@ const MainPage = props => {
   const ratingDetails = val => {
     setComment(val.comment);
     setPizza(val.name);
+    db.collection('pizza-collection').doc(val.name).collection("comments")
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        getComments(existingComments => [...existingComments, doc.data()])
+      })
+    })
   };
 
   const generateList = () => {
@@ -63,7 +71,7 @@ const MainPage = props => {
                   tabIndex="-1"
                   role="dialog"
                 >
-                  <PizzaRating comment={comment} pizza={pizzaName} />
+                  <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} />
                 </div>
               </div>
             </div>

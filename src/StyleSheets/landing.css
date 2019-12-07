@@ -1,10 +1,10 @@
 .bgImg {
     height: 75vh;
     background-repeat: no-repeat;
-    background-image: url(https://bit.ly/2kVUKlz);
-    background-size: 300px 350px;
-    background-position-x: 100%;
-    background-position-y: 0%;
+    background-image: url(https://www.pngrepo.com/download/201515/pizza-slice-pizza.png);
+    background-size: 200px 250px;
+    background-position-x: 95%;
+    background-position-y: 15%;
 }
 
 .jumbotron {

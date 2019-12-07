@@ -33,6 +33,7 @@ const PizzaRating = props => {
             </button>
           </div>
           <div className="modal-body">
+            <h4>Added by: {props.owner}</h4>
             <p>{props.comment}</p>
             <br />
             Rating:

@@ -12,6 +12,7 @@ const MainPage = props => {
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
   const [existingComments, getComments] = useState([])
+  const [owner, setOwner] = useState(null)
 
   useEffect(() => {
     db.collection('pizza-collection').get().then(querySnapshot => {
@@ -25,6 +26,7 @@ const MainPage = props => {
     existingComments.splice(0)
     setComment(val.comment);
     setPizza(val.name);
+    setOwner(val.owner)
     // Get existing comments from the collection
     // Pass the comment state as a prop to the modal render
     db.collection('pizza-collection').doc(val.name).collection("comments")
@@ -65,7 +67,7 @@ const MainPage = props => {
                 tabIndex="-1"
                 role="dialog"
               >
-                <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} />
+                <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} owner={owner} />
               </div>
             </div>
           </div>
