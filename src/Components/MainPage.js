@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
-import PizzaRating from "./Modals/PizzaRating";
+import DetailsModal from "./Modals/DetailsModal";
 import NewPizza from "./Modals/NewPizza";
 import { db } from '../base';
 
@@ -67,7 +67,7 @@ const MainPage = props => {
                 tabIndex="-1"
                 role="dialog"
               >
-                <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} owner={owner} />
+                <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} />
               </div>
             </div>
           </div>

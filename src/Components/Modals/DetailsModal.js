@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import "../../StyleSheets/modal.css";
 import { db } from "../../base";
 
-const PizzaRating = props => {
+const DetailsModal = props => {
+  // Destructure values out of the props object
+  const {name, owner, comment, comments} = props
   // New comments state
-  const [comment, setComment] = useState([]);
+  const [addedComment, setComment] = useState([]);
 
   const handleSubmit = () => {
     db.collection("pizza-collection")
-      .doc(props.pizza)
+      .doc(props.name)
       .collection("comments")
-      .add({ comment: comment })
+      .add({ comment: addedComment })
       .then(() => console.log("Comment updated"))
       .catch(error => `Something went wrong: ${error}`);
   };
@@ -21,7 +23,7 @@ const PizzaRating = props => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Rating details on {props.pizza}
+              Rating details on {name}
             </h5>
             <button
               type="button"
@@ -33,8 +35,8 @@ const PizzaRating = props => {
             </button>
           </div>
           <div className="modal-body">
-            <h4>Added by: {props.owner}</h4>
-            <p>{props.comment}</p>
+            <h4>Added by: {owner}</h4>
+            <p>{comment}</p>
             <br />
             Rating:
             <div className="form-check form-check-inline ml-2 mb-3">
@@ -93,7 +95,7 @@ const PizzaRating = props => {
               <h5>Comments: </h5>
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
-              {props.comments.map((comment, index) => {
+              {comments.map((comment, index) => {
                 return (
                   <li key={index}>
                     {comment.comment}
@@ -138,4 +140,4 @@ const PizzaRating = props => {
   );
 };
 
-export default PizzaRating;
+export default DetailsModal;
