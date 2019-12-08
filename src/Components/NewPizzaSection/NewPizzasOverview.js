@@ -11,6 +11,7 @@ const MainPage = props => {
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
   const [existingComments, getComments] = useState([])
+  const [owner, setOwner] = useState(null)
   const oneDay = 24 * 60 * 60;
   const now = Math.floor(Date.now() / 1000);
 
@@ -27,6 +28,7 @@ const MainPage = props => {
   const ratingDetails = val => {
     setComment(val.comment);
     setPizza(val.name);
+    setOwner(val.owner)
     db.collection('pizza-collection').doc(val.name).collection("comments")
     .get()
     .then(querySnapshot => {
@@ -71,7 +73,7 @@ const MainPage = props => {
                   tabIndex="-1"
                   role="dialog"
                 >
-                  <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} />
+                  <PizzaRating comment={comment} pizza={pizzaName} comments={existingComments} owner={owner}/>
                 </div>
               </div>
             </div>

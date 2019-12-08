@@ -94,7 +94,12 @@ const PizzaRating = props => {
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
               {props.comments.map((comment, index) => {
-                return <li key={index}>{comment.comment}</li>;
+                return (
+                  <li key={index}>
+                    {comment.comment}
+                    <i className="ml-1 far fa-trash-alt deleteBtn"></i>  
+                  </li>                 
+                  );
               })}
               </ul>
             </div>

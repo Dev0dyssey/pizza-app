@@ -1,3 +1,11 @@
 .modal-content {
     color: black;
 }
+
+.deleteBtn {
+    color: red;
+}
+
+.deleteBtn:hover {
+    cursor: pointer;
+}
