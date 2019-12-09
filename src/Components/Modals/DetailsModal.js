@@ -9,13 +9,25 @@ const DetailsModal = props => {
   const [addedComment, setComment] = useState([]);
 
   const handleSubmit = () => {
-    db.collection("pizza-collection")
+    db.collection(`pizza-collection`)
       .doc(props.name)
       .collection("comments")
       .add({ comment: addedComment })
-      .then(() => console.log("Comment updated"))
       .catch(error => `Something went wrong: ${error}`);
   };
+
+  const deleteComment = (name, comment) => {
+    let deleteRef = db.collection(`pizza-collection`).doc(name).collection(`comments`)
+    deleteRef.where('comment', '==', comment).get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          deleteRef.doc(doc.id).delete()
+        })
+      })
+      .catch(err => {
+        console.log(`Error deleting comments ${err}`)
+      })
+  }
 
   return (
     <>
@@ -99,7 +111,10 @@ const DetailsModal = props => {
                 return (
                   <li key={index}>
                     {comment.comment}
-                    <i className="ml-1 far fa-trash-alt deleteBtn"></i>  
+                    <i 
+                      className="ml-1 far fa-trash-alt deleteBtn"
+                      data-dismiss="modal"
+                      onClick={() => deleteComment(name, comment.comment)}></i>  
                   </li>                 
                   );
               })}
