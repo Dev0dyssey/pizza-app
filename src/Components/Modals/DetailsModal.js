@@ -4,7 +4,7 @@ import { db } from "../../base";
 
 const DetailsModal = props => {
   // Destructure values out of the props object
-  const {name, owner, comment, comments} = props
+  const {name, owner, comment, comments, avgRating} = props
   // New comments state
   const [addedComment, setComment] = useState([]);
 
@@ -35,7 +35,7 @@ const DetailsModal = props => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Rating details on {name}
+              Rating details on {name} with {avgRating.reduce((a, b) => a + b, 0)/avgRating.length} average rating
             </h5>
             <button
               type="button"

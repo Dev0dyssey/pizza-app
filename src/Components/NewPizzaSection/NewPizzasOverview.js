@@ -73,7 +73,7 @@ const MainPage = props => {
                   tabIndex="-1"
                   role="dialog"
                 >
-                  <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner}/>
+                  <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} />
                 </div>
               </div>
             </div>
