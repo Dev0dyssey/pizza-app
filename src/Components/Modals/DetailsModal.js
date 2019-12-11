@@ -35,7 +35,7 @@ const DetailsModal = props => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Rating details on {name} with {avgRating.reduce((a, b) => a + b, 0)/avgRating.length} average rating
+              Rating details on {name}
             </h5>
             <button
               type="button"
@@ -48,6 +48,7 @@ const DetailsModal = props => {
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
+            <h5>Average Rating: {Math.round((avgRating.reduce((a, b) => a + b, 0)/avgRating.length)*100)/100}</h5>
             <p>{comment}</p>
             <br />
             Rating:

@@ -10,8 +10,9 @@ const MainPage = props => {
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
-  const [existingComments, getComments] = useState([])
-  const [owner, setOwner] = useState(null)
+  const [existingComments, getComments] = useState([]);
+  const [owner, setOwner] = useState(null);
+  const [avgRating, getRating] = useState([]);
   const oneDay = 24 * 60 * 60;
   const now = Math.floor(Date.now() / 1000);
 
@@ -26,6 +27,7 @@ const MainPage = props => {
   }, []);
 
   const ratingDetails = val => {
+    getRating(val.ratings)
     setComment(val.comment);
     setPizza(val.name);
     setOwner(val.owner)
@@ -73,7 +75,7 @@ const MainPage = props => {
                   tabIndex="-1"
                   role="dialog"
                 >
-                  <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} />
+                  <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} avgRating={avgRating} />
                 </div>
               </div>
             </div>

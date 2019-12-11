@@ -25,7 +25,7 @@ const MainPage = props => {
 
   const ratingDetails = val => {
     existingComments.splice(0)
-    getRating(val.test)
+    getRating(val.ratings)
     setComment(val.comment);
     setPizza(val.name);
     setOwner(val.owner)
