@@ -7,6 +7,7 @@ const DetailsModal = props => {
   const {name, owner, comment, comments, avgRating} = props
   // New comments state
   const [addedComment, setComment] = useState([]);
+  const [addedRating, addRating] = useState(0); 
 
   const handleSubmit = () => {
     db.collection(`pizza-collection`)
@@ -14,6 +15,13 @@ const DetailsModal = props => {
       .collection("comments")
       .add({ comment: addedComment })
       .catch(error => `Something went wrong: ${error}`);
+    db.collection(`pizza-collection`)
+      .doc(props.name)
+      .update(
+        {
+          'ratings': [...props.avgRating, addedRating]
+        }
+      )
   };
 
   const deleteComment = (name, comment) => {
@@ -62,6 +70,9 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio1"
                 value="option1"
+                onClick={() =>
+                  addRating(1)
+                }
               />
               <label className="form-check-label mr-1" for="inlineRadio2">
                 2
@@ -72,6 +83,9 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio2"
                 value="option2"
+                onClick={() =>
+                  addRating(2)
+                }
               />
               <label className="form-check-label mr-1" for="inlineRadio3">
                 3
@@ -82,6 +96,9 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
+                onClick={() =>
+                  addRating(3)
+                }
               />
               <label className="form-check-label mr-1" for="inlineRadio3">
                 4
@@ -92,7 +109,11 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
+                onClick={() =>
+                  addRating(4)
+                }
               />
+
               <label className="form-check-label mr-1" for="inlineRadio3">
                 5
               </label>
@@ -102,6 +123,9 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
+                onClick={() =>
+                  addRating(5)
+                }
               />
             </div>
             <div>
