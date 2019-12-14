@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../StyleSheets/modal.css";
 import { db } from "../../base";
 
@@ -6,8 +6,13 @@ const DetailsModal = props => {
   // Destructure values out of the props object
   const {name, owner, comment, comments, avgRating} = props
   // New comments state
-  const [addedComment, setComment] = useState([]);
+  const [addedComment, setComment] = useState("");
+  // Ratings state to be used in adding more ratings in order to calculate average rating
   const [addedRating, addRating] = useState(0); 
+
+  useEffect(() => {
+    console.log(`Document has been updated!`)
+  })
 
   const handleSubmit = () => {
     db.collection(`pizza-collection`)
@@ -170,6 +175,7 @@ const DetailsModal = props => {
               className="btn btn-primary"
               data-dismiss="modal"
               onClick={() => handleSubmit()}
+              disabled={addedComment !== "" ? false : true}
             >
               Add Rating & Comment
             </button>
