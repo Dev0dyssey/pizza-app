@@ -61,7 +61,9 @@ const DetailsModal = props => {
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
-            <h5>Average Rating: {Math.round((avgRating.reduce((a, b) => a + b, 0)/avgRating.length)*100)/100}</h5>
+            <h5>Average Rating: 
+            {isNaN(avgRating) ? ` ${Math.round((avgRating.reduce((a, b) => a + b, 0)/avgRating.length)*100)/100} ` : ` No Ratings yet ` }
+            </h5>
             <p>{comment}</p>
             <br />
             Rating:

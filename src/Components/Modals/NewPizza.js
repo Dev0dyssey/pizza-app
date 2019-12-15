@@ -4,11 +4,12 @@ import { db } from "../../base";
 const NewPizza = props => {
   // New pizza object{} that gets passed to the database to create new entries
   const [newPizza, addPizza] = useState({
-    owner: db.app.auth().currentUser.uid,
+    owner: db.app.auth().currentUser.displayName,
     name: "",
     photo: "",
     restaurant: "",
     rating: "",
+    ratings: [],
     comment: "",
     added: new Date(Date.now())
   });

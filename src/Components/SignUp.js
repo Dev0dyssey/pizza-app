@@ -6,11 +6,16 @@ const SignUp = ({ history }) => {
   const handleSignup = useCallback(
     async event => {
       event.preventDefault();
-      const { email, password } = event.target.elements;
+      const { email, password, username } = event.target.elements;
       try {
         await app
           .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
+          .createUserWithEmailAndPassword(email.value, password.value)
+          .then(userData => {
+            userData.user.updateProfile({
+              displayName: username.value
+            })
+          });
         history.push("/main");
       } catch (error) {
         alert(error);
@@ -23,6 +28,16 @@ const SignUp = ({ history }) => {
     <div className="jumbotron mt-5">
       <h1>Create a user profile</h1>
       <form onSubmit={handleSignup}>
+      <div className="form-group">
+          <label for="pizzaUserName">Username</label>
+          <input
+            name="username"
+            type="text"
+            className="form-control"
+            id="pizzaUserName"
+            placeholder="Choose a username"
+          />
+        </div>
         <div className="form-group">
           <label for="examplePizza">Email</label>
           <input
@@ -43,7 +58,6 @@ const SignUp = ({ history }) => {
             placeholder="Choose a password"
           />
         </div>
-        
           <button className="btn btn-primary">
             Create
           </button>
