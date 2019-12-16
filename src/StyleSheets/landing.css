@@ -16,3 +16,11 @@
     right: 5%;
     top: 10%;
 }
+
+.resetBtn {
+    color: blue;
+}
+
+.resetBtn:hover {
+    cursor: pointer;
+}
