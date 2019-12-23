@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useContext } from "react";
 import { withRouter, Redirect, Link } from "react-router-dom";
 import app from "../base";
-import "../StyleSheets/landing.css"
+import "../StyleSheets/landing.css";
 import { AuthContext } from "../Auth";
 
 const LogIn = ({ history }) => {
-  const [email, setEmail] = useState("")
-  const [emailStatus, changeStatus] = useState(false)
+  const [email, setEmail] = useState("");
+  const [emailStatus, changeStatus] = useState(false);
 
   const handleLogin = useCallback(
     async event => {
@@ -25,16 +25,17 @@ const LogIn = ({ history }) => {
   );
 
   const resetPasswordEmail = () => {
-    console.log(`Reset Password email sent`)
-    app.auth().sendPasswordResetEmail(email)
+    console.log(`Reset Password email sent`);
+    app
+      .auth()
+      .sendPasswordResetEmail(email)
       .then(() => {
         changeStatus(true);
       })
       .catch(err => {
-        console.log(`An error has occured`, err)
-      })
-
-  }
+        console.log(`An error has occured`, err);
+      });
+  };
 
   const { currentUser } = useContext(AuthContext);
 
@@ -79,9 +80,16 @@ const LogIn = ({ history }) => {
           </button>
         </Link>
         <div className="resetBtn" style={{ hover: "pointer" }}>
-          <span data-toggle="modal" data-target="#resetPasswordModal">Forgot your password?</span>
+          <span data-toggle="modal" data-target="#resetPasswordModal">
+            Forgot your password?
+          </span>
         </div>
-        <div className="modal" id="resetPasswordModal" tabIndex="-1" role="dialog">
+        <div
+          className="modal"
+          id="resetPasswordModal"
+          tabIndex="-1"
+          role="dialog"
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -89,27 +97,43 @@ const LogIn = ({ history }) => {
               </div>
               <div className="modal-body">
                 <div className="inputGroup">
-                  {emailStatus &&
+                  {emailStatus && (
                     <div>
-                      <p>A password reset link was sent to the email address you entered!</p>
+                      <p>
+                        A password reset link was sent to the email address you
+                        entered!
+                      </p>
                     </div>
-                  }
-                  {!emailStatus &&
+                  )}
+                  {!emailStatus && (
                     <input
                       type="email"
                       className="form-control"
                       placeholder="Please enter the email you used to register"
                       onChange={e => {
                         const resetEmail = e.target.value;
-                        setEmail(resetEmail)
+                        setEmail(resetEmail);
                       }}
                     ></input>
-                  }
+                  )}
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => changeStatus(false)}>Cancel</button>
-                <button type="button" className="btn btn-primary" onClick={() => resetPasswordEmail()}>Reset Password</button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                  onClick={() => changeStatus(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={resetPasswordEmail}
+                >
+                  Reset Password
+                </button>
               </div>
             </div>
           </div>

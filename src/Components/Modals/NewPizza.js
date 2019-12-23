@@ -14,13 +14,13 @@ const NewPizza = props => {
     added: new Date(Date.now())
   });
 
-
   const handleSubmit = () => {
     db.collection("pizza-collection")
-      .doc(newPizza.name).set(newPizza)
-      // .add(newPizza).then(docRef => {
-      //   console.log(`Document ID: ${docRef.id}}`)
-      // })
+      .doc(newPizza.name)
+      .set(newPizza);
+    // .add(newPizza).then(docRef => {
+    //   console.log(`Document ID: ${docRef.id}}`)
+    // })
   };
 
   return (
@@ -193,7 +193,7 @@ const NewPizza = props => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => handleSubmit()}
+              onClick={handleSubmit}
               data-dismiss="modal"
             >
               Save changes

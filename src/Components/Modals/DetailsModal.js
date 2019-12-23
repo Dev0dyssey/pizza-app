@@ -4,15 +4,15 @@ import { db } from "../../base";
 
 const DetailsModal = props => {
   // Destructure values out of the props object
-  const {name, owner, comment, comments, avgRating} = props
+  const { name, owner, comment, comments, avgRating } = props;
   // New comments state
   const [addedComment, setComment] = useState("");
   // Ratings state to be used in adding more ratings in order to calculate average rating
-  const [addedRating, addRating] = useState(0); 
+  const [addedRating, addRating] = useState(0);
 
   useEffect(() => {
-    console.log(`Document has been updated!`)
-  })
+    console.log(`Document has been updated!`);
+  });
 
   const handleSubmit = () => {
     db.collection(`pizza-collection`)
@@ -22,25 +22,28 @@ const DetailsModal = props => {
       .catch(error => `Something went wrong: ${error}`);
     db.collection(`pizza-collection`)
       .doc(props.name)
-      .update(
-        {
-          'ratings': [...props.avgRating, addedRating]
-        }
-      )
+      .update({
+        ratings: [...props.avgRating, addedRating]
+      });
   };
 
   const deleteComment = (name, comment) => {
-    let deleteRef = db.collection(`pizza-collection`).doc(name).collection(`comments`)
-    deleteRef.where('comment', '==', comment).get()
+    let deleteRef = db
+      .collection(`pizza-collection`)
+      .doc(name)
+      .collection(`comments`);
+    deleteRef
+      .where("comment", "==", comment)
+      .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          deleteRef.doc(doc.id).delete()
-        })
+          deleteRef.doc(doc.id).delete();
+        });
       })
       .catch(err => {
-        console.log(`Error deleting comments ${err}`)
-      })
-  }
+        console.log(`Error deleting comments ${err}`);
+      });
+  };
 
   return (
     <>
@@ -61,8 +64,14 @@ const DetailsModal = props => {
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
-            <h5>Average Rating: 
-            {isNaN(avgRating) ? ` ${Math.round((avgRating.reduce((a, b) => a + b, 0)/avgRating.length)*100)/100} ` : ` No Ratings yet ` }
+            <h5>
+              Average Rating:
+              {isNaN(avgRating)
+                ? ` ${Math.round(
+                    (avgRating.reduce((a, b) => a + b, 0) / avgRating.length) *
+                      100
+                  ) / 100} `
+                : ` No Ratings yet `}
             </h5>
             <p>{comment}</p>
             <br />
@@ -77,9 +86,7 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio1"
                 value="option1"
-                onClick={() =>
-                  addRating(1)
-                }
+                onClick={() => addRating(1)}
               />
               <label className="form-check-label mr-1" for="inlineRadio2">
                 2
@@ -90,9 +97,7 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio2"
                 value="option2"
-                onClick={() =>
-                  addRating(2)
-                }
+                onClick={() => addRating(2)}
               />
               <label className="form-check-label mr-1" for="inlineRadio3">
                 3
@@ -103,9 +108,7 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
-                onClick={() =>
-                  addRating(3)
-                }
+                onClick={() => addRating(3)}
               />
               <label className="form-check-label mr-1" for="inlineRadio3">
                 4
@@ -116,9 +119,7 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
-                onClick={() =>
-                  addRating(4)
-                }
+                onClick={() => addRating(4)}
               />
 
               <label className="form-check-label mr-1" for="inlineRadio3">
@@ -130,26 +131,25 @@ const DetailsModal = props => {
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
-                onClick={() =>
-                  addRating(5)
-                }
+                onClick={() => addRating(5)}
               />
             </div>
             <div>
               <h5>Comments: </h5>
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
-              {comments.map((comment, index) => {
-                return (
-                  <li key={index}>
-                    {comment.comment}
-                    <i 
-                      className="ml-1 far fa-trash-alt deleteBtn"
-                      data-dismiss="modal"
-                      onClick={() => deleteComment(name, comment.comment)}></i>  
-                  </li>                 
+                {comments.map((comment, index) => {
+                  return (
+                    <li key={index}>
+                      {comment.comment}
+                      <i
+                        className="ml-1 far fa-trash-alt deleteBtn"
+                        data-dismiss="modal"
+                        onClick={() => deleteComment(name, comment.comment)}
+                      ></i>
+                    </li>
                   );
-              })}
+                })}
               </ul>
             </div>
             <div className="input-group">
@@ -176,7 +176,7 @@ const DetailsModal = props => {
               type="button"
               className="btn btn-primary"
               data-dismiss="modal"
-              onClick={() => handleSubmit()}
+              onClick={handleSubmit}
               disabled={addedComment !== "" ? false : true}
             >
               Add Rating & Comment

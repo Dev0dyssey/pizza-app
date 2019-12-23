@@ -14,7 +14,7 @@ const SignUp = ({ history }) => {
           .then(userData => {
             userData.user.updateProfile({
               displayName: username.value
-            })
+            });
           });
         history.push("/main");
       } catch (error) {
@@ -28,7 +28,7 @@ const SignUp = ({ history }) => {
     <div className="jumbotron mt-5">
       <h1>Create a user profile</h1>
       <form onSubmit={handleSignup}>
-      <div className="form-group">
+        <div className="form-group">
           <label for="pizzaUserName">Username</label>
           <input
             name="username"
@@ -58,10 +58,7 @@ const SignUp = ({ history }) => {
             placeholder="Choose a password"
           />
         </div>
-          <button className="btn btn-primary">
-            Create
-          </button>
-        
+        <button className="btn btn-primary">Create</button>
       </form>
     </div>
   );

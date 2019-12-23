@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import app from '../base';
+import app from "../base";
 
 const NavBar = () => {
   return (
@@ -43,7 +43,9 @@ const NavBar = () => {
             </a>
           </li>
         </ul>
-        <button className="btn btn-danger" onClick={() => app.auth().signOut()}>Log out</button>
+        <button className="btn btn-danger" onClick={() => app.auth().signOut()}>
+          Log out
+        </button>
       </div>
     </nav>
   );
