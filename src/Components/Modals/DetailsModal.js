@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../StyleSheets/modal.css";
+import app from "../../base";
 import { db } from "../../base";
 
 const DetailsModal = props => {
@@ -18,7 +19,7 @@ const DetailsModal = props => {
     db.collection(`pizza-collection`)
       .doc(props.name)
       .collection("comments")
-      .add({ comment: addedComment })
+      .add({ comment: addedComment, userID: app.auth().currentUser.uid })
       .catch(error => `Something went wrong: ${error}`);
     db.collection(`pizza-collection`)
       .doc(props.name)
@@ -139,16 +140,20 @@ const DetailsModal = props => {
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
                 {comments.map((comment, index) => {
-                  return (
-                    <li key={index}>
-                      {comment.comment}
-                      <i
-                        className="ml-1 far fa-trash-alt deleteBtn"
-                        data-dismiss="modal"
-                        onClick={() => deleteComment(name, comment.comment)}
-                      ></i>
-                    </li>
-                  );
+                  if (comment.userID === app.auth().currentUser.uid) {
+                    return (
+                      <li key={index}>
+                        {comment.comment}
+                        <i
+                          className="ml-1 far fa-trash-alt deleteBtn"
+                          data-dismiss="modal"
+                          onClick={() => deleteComment(name, comment.comment)}
+                        ></i>
+                      </li>
+                    );
+                  } else {
+                    return <li key={index}>{comment.comment}</li>;
+                  }
                 })}
               </ul>
             </div>
