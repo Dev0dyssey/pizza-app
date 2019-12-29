@@ -31,7 +31,7 @@ const NavBar = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/main/othermeals">
               Other meals
               <i className="fas fa-utensils ml-3"></i>
             </a>

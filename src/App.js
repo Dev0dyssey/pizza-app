@@ -7,6 +7,7 @@ import SignUp from "./Components/SignUp";
 import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
 import NewPizzasOverview from "./Components/NewPizzaSection/NewPizzasOverview";
+import OtherMeals from "./Components/OtherMeals";
 import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
@@ -26,6 +27,11 @@ const App = () => {
                   path="/main/newpizzas"
                   exact
                   component={NewPizzasOverview}
+                />
+                <PrivateRoute
+                  path="/main/othermeals"
+                  exact
+                  component={OtherMeals}
                 />
               </Switch>
             </AuthProvider>

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewPizza from "./Modals/NewPizza";
-import { db } from '../base';
+import { db } from "../base";
 
-import '../StyleSheets/main.css'
+import "../StyleSheets/main.css";
 
 const MainPage = props => {
-
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
@@ -16,44 +15,50 @@ const MainPage = props => {
   const [avgRating, getRating] = useState([]);
 
   useEffect(() => {
-    db.collection('pizza-collection').get().then(querySnapshot => {
-      querySnapshot.forEach((doc) => {
-      setList(pizzaList => [...pizzaList, doc.data()])
+    db.collection("pizza-collection")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          setList(pizzaList => [...pizzaList, doc.data()]);
+        });
       });
-    });
-  }, [])
+  }, []);
 
   const ratingDetails = val => {
-    existingComments.splice(0)
-    getRating(val.ratings)
+    existingComments.splice(0);
+    getRating(val.ratings);
     setComment(val.comment);
     setPizza(val.name);
-    setOwner(val.owner)
+    setOwner(val.owner);
     // Get existing comments from the collection
     // Pass the comment state as a prop to the modal render
-    db.collection('pizza-collection').doc(val.name).collection("comments")
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        getComments(existingComments => [...existingComments, doc.data()])
-      })
-    })
+    db.collection("pizza-collection")
+      .doc(val.name)
+      .collection("comments")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          getComments(existingComments => [...existingComments, doc.data()]);
+        });
+      });
   };
 
   const generateList = () => {
-    pizzaList.sort((a,b) => parseFloat(b.rating) - parseFloat(a.rating));
+    pizzaList.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
     return pizzaList.map((pizza, index) => {
       return (
         <div className="col-md-4 col-sm-1 d-flex" key={index}>
           <div className="card text-white" style={{ marginBottom: "1rem" }}>
-              <img
-                className="card-img-top"
-                src={pizza.photo}
-                alt={pizza}
-                style={{ width: "100%", height: "100%", objectFit: "cover"}}
-              />
+            <img
+              className="card-img-top"
+              src={pizza.photo}
+              alt={pizza}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
             <div className="card-img-overlay d-flex flex-column">
-              <span className="badge badge-primary" style={{width: "1rem"}}>{pizza.rating}</span>
+              <span className="badge badge-primary" style={{ width: "1rem" }}>
+                {pizza.rating}
+              </span>
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
@@ -69,7 +74,13 @@ const MainPage = props => {
                 tabIndex="-1"
                 role="dialog"
               >
-                <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} avgRating={avgRating}/>
+                <DetailsModal
+                  comment={comment}
+                  name={pizzaName}
+                  comments={existingComments}
+                  owner={owner}
+                  avgRating={avgRating}
+                />
               </div>
             </div>
           </div>
