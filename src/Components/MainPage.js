@@ -75,6 +75,7 @@ const MainPage = props => {
                 role="dialog"
               >
                 <DetailsModal
+                  detailsOf="pizza"
                   comment={comment}
                   name={pizzaName}
                   comments={existingComments}
@@ -103,7 +104,7 @@ const MainPage = props => {
         Add Pizza!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewPizza />
+        <NewPizza adding="pizza" />
       </div>
     </>
   );

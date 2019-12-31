@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
+import DetailsModal from "./Modals/DetailsModal";
+import NewPizza from "./Modals/NewPizza";
 import { db } from "../base";
 
 import "../StyleSheets/main.css";
 
 const OtherMeals = props => {
+  const [comment, setComment] = useState("Placeholder Comment");
+  const [mealName, setMeal] = useState("Placeholder Meal");
   const [mealList, setMeals] = useState([]);
+  const [existingComments, getComments] = useState([]);
+  const [owner, setOwner] = useState(null);
+  const [avgRating, getRating] = useState([]);
 
   useEffect(() => {
     db.collection(`other-meals`)
@@ -17,7 +24,25 @@ const OtherMeals = props => {
       });
   }, []);
 
+  const ratingDetails = val => {
+    existingComments.splice(0);
+    getRating(val.ratings);
+    setComment(val.comment);
+    setMeal(val.name);
+    setOwner(val.owner);
+    db.collection("other-meals")
+      .doc(val.name)
+      .collection("comments")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          getComments(existingComments => [...existingComments, doc.data()]);
+        });
+      });
+  };
+
   const generateList = () => {
+    mealList.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
     return mealList.map((meal, index) => {
       return (
         <div className="col-md-4 col-sm-1 d-flex" key={index}>
@@ -30,12 +55,32 @@ const OtherMeals = props => {
             />
             <div className="card-img-overlay d-flex flex-column">
               <span className="badge badge-primary" style={{ width: "1rem" }}>
-                5
+                {meal.rating}
               </span>
               <br />
-              <button className="mainBTN mt-auto btn btn-primary">
+              <button
+                onClick={() => ratingDetails(meal)}
+                className="mainBTN mt-auto btn btn-primary"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
                 {meal.name}
               </button>
+              <div
+                className="modal fade"
+                id="exampleModal"
+                tabIndex="-1"
+                role="dialog"
+              >
+                <DetailsModal
+                  detailsOf="meal"
+                  comment={comment}
+                  name={mealName}
+                  comments={existingComments}
+                  owner={owner}
+                  avgRating={avgRating}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -47,7 +92,18 @@ const OtherMeals = props => {
     <>
       <NavBar />
       <h3>Other meal rating system!</h3>
-      <div>{generateList()}</div>
+      <br />
+      <div className="row">{generateList()}</div>
+      <button
+        className="btn btn-primary col text-center"
+        data-toggle="modal"
+        data-target="#newPizza"
+      >
+        Add Meal!
+      </button>
+      <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
+        <NewPizza adding="meal" />
+      </div>
     </>
   );
 };

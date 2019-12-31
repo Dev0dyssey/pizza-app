@@ -15,13 +15,16 @@ const DetailsModal = props => {
     console.log(`Document has been updated!`);
   });
 
+  const databaseName =
+    props.detailsOf === `pizza` ? `pizza-collection` : `other-meals`;
+
   const handleSubmit = () => {
-    db.collection(`pizza-collection`)
+    db.collection(databaseName)
       .doc(props.name)
       .collection("comments")
       .add({ comment: addedComment, userID: app.auth().currentUser.uid })
       .catch(error => `Something went wrong: ${error}`);
-    db.collection(`pizza-collection`)
+    db.collection(databaseName)
       .doc(props.name)
       .update({
         ratings: [...props.avgRating, addedRating]
@@ -30,7 +33,7 @@ const DetailsModal = props => {
 
   const deleteComment = (name, comment) => {
     let deleteRef = db
-      .collection(`pizza-collection`)
+      .collection(databaseName)
       .doc(name)
       .collection(`comments`);
     deleteRef

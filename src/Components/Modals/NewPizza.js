@@ -15,12 +15,21 @@ const NewPizza = props => {
   });
 
   const handleSubmit = () => {
-    db.collection("pizza-collection")
-      .doc(newPizza.name)
-      .set(newPizza);
-    // .add(newPizza).then(docRef => {
-    //   console.log(`Document ID: ${docRef.id}}`)
-    // })
+    if (props.adding === "pizza") {
+      db.collection("pizza-collection")
+        .doc(newPizza.name)
+        .set(newPizza);
+      // .add(newPizza).then(docRef => {
+      //   console.log(`Document ID: ${docRef.id}}`)
+      // })
+    } else {
+      db.collection("other-meals")
+        .doc(newPizza.name)
+        .set(newPizza);
+      // .add(newPizza).then(docRef => {
+      //   console.log(`Document ID: ${docRef.id}}`)
+      // })
+    }
   };
 
   return (
