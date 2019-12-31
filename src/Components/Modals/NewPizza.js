@@ -3,7 +3,7 @@ import { db } from "../../base";
 
 const NewPizza = props => {
   // New pizza object{} that gets passed to the database to create new entries
-  const [newPizza, addPizza] = useState({
+  const [newDetails, addDetails] = useState({
     owner: db.app.auth().currentUser.displayName,
     name: "",
     photo: "",
@@ -17,15 +17,15 @@ const NewPizza = props => {
   const handleSubmit = () => {
     if (props.adding === "pizza") {
       db.collection("pizza-collection")
-        .doc(newPizza.name)
-        .set(newPizza);
+        .doc(newDetails.name)
+        .set(newDetails);
       // .add(newPizza).then(docRef => {
       //   console.log(`Document ID: ${docRef.id}}`)
       // })
     } else {
       db.collection("other-meals")
-        .doc(newPizza.name)
-        .set(newPizza);
+        .doc(newDetails.name)
+        .set(newDetails);
       // .add(newPizza).then(docRef => {
       //   console.log(`Document ID: ${docRef.id}}`)
       // })
@@ -60,8 +60,8 @@ const NewPizza = props => {
                     placeholder="Pizza Name"
                     onChange={e => {
                       const name = e.target.value;
-                      addPizza(newPizza => {
-                        return { ...newPizza, name };
+                      addDetails(newDetails => {
+                        return { ...newDetails, name };
                       });
                     }}
                   ></input>
@@ -73,8 +73,8 @@ const NewPizza = props => {
                     placeholder="Restaurant"
                     onChange={e => {
                       const restaurant = e.target.value;
-                      addPizza(newPizza => {
-                        return { ...newPizza, restaurant };
+                      addDetails(newDetails => {
+                        return { ...newDetails, restaurant };
                       });
                     }}
                   ></input>
@@ -86,8 +86,8 @@ const NewPizza = props => {
                     placeholder="Photo"
                     onChange={e => {
                       const photo = e.target.value;
-                      addPizza(newPizza => {
-                        return { ...newPizza, photo };
+                      addDetails(newDetails => {
+                        return { ...newDetails, photo };
                       });
                     }}
                   ></input>
@@ -102,8 +102,8 @@ const NewPizza = props => {
                   style={{ resize: "none" }}
                   onChange={e => {
                     const comment = e.target.value;
-                    addPizza(newPizza => {
-                      return { ...newPizza, comment };
+                    addDetails(newDetails => {
+                      return { ...newDetails, comment };
                     });
                   }}
                 ></textarea>
@@ -122,8 +122,8 @@ const NewPizza = props => {
                 id="inlineRadio1"
                 value="option1"
                 onClick={() =>
-                  addPizza(newPizza => {
-                    return { ...newPizza, rating: 1 };
+                  addDetails(newDetails => {
+                    return { ...newDetails, rating: 1 };
                   })
                 }
               />
@@ -137,8 +137,8 @@ const NewPizza = props => {
                 id="inlineRadio2"
                 value="option2"
                 onClick={() =>
-                  addPizza(newPizza => {
-                    return { ...newPizza, rating: 2 };
+                  addDetails(newDetails => {
+                    return { ...newDetails, rating: 2 };
                   })
                 }
               />
@@ -152,8 +152,8 @@ const NewPizza = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addPizza(newPizza => {
-                    return { ...newPizza, rating: 3 };
+                  addDetails(newDetails => {
+                    return { ...newDetails, rating: 3 };
                   })
                 }
               />
@@ -167,8 +167,8 @@ const NewPizza = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addPizza(newPizza => {
-                    return { ...newPizza, rating: 4 };
+                  addDetails(newDetails => {
+                    return { ...newDetails, rating: 4 };
                   })
                 }
               />
@@ -183,8 +183,8 @@ const NewPizza = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addPizza(newPizza => {
-                    return { ...newPizza, rating: 5 };
+                  addDetails(newDetails => {
+                    return { ...newDetails, rating: 5 };
                   })
                 }
               />
