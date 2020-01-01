@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
-import NewPizza from "./Modals/NewPizza";
+import NewEntry from "./Modals/NewEntry";
 import { db } from "../base";
 
 import "../StyleSheets/main.css";
@@ -104,7 +104,7 @@ const MainPage = props => {
         Add Pizza!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewPizza adding="pizza" />
+        <NewEntry adding="pizza" />
       </div>
     </>
   );

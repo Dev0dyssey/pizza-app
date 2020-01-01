@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../../UIComponents/NavBar";
 import DetailsModal from "../Modals/DetailsModal";
-import NewPizza from "../Modals/NewPizza";
+import NewEntry from "../Modals/NewEntry";
 import { db } from "../../base";
 
 import "../../StyleSheets/main.css";
@@ -27,17 +27,19 @@ const MainPage = props => {
   }, []);
 
   const ratingDetails = val => {
-    getRating(val.ratings)
+    getRating(val.ratings);
     setComment(val.comment);
     setPizza(val.name);
-    setOwner(val.owner)
-    db.collection('pizza-collection').doc(val.name).collection("comments")
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        getComments(existingComments => [...existingComments, doc.data()])
-      })
-    })
+    setOwner(val.owner);
+    db.collection("pizza-collection")
+      .doc(val.name)
+      .collection("comments")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          getComments(existingComments => [...existingComments, doc.data()]);
+        });
+      });
   };
 
   const generateList = () => {
@@ -75,7 +77,13 @@ const MainPage = props => {
                   tabIndex="-1"
                   role="dialog"
                 >
-                  <DetailsModal comment={comment} name={pizzaName} comments={existingComments} owner={owner} avgRating={avgRating} />
+                  <DetailsModal
+                    comment={comment}
+                    name={pizzaName}
+                    comments={existingComments}
+                    owner={owner}
+                    avgRating={avgRating}
+                  />
                 </div>
               </div>
             </div>
@@ -98,7 +106,7 @@ const MainPage = props => {
         Add Pizza!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewPizza />
+        <NewEntry />
       </div>
     </>
   );

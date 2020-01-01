@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../base";
 
-const NewPizza = props => {
+const NewEntry = props => {
   // New pizza object{} that gets passed to the database to create new entries
   const [newDetails, addDetails] = useState({
     owner: db.app.auth().currentUser.displayName,
@@ -208,4 +208,4 @@ const NewPizza = props => {
   );
 };
 
-export default NewPizza;
+export default NewEntry;
