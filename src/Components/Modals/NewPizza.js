@@ -19,16 +19,10 @@ const NewPizza = props => {
       db.collection("pizza-collection")
         .doc(newDetails.name)
         .set(newDetails);
-      // .add(newPizza).then(docRef => {
-      //   console.log(`Document ID: ${docRef.id}}`)
-      // })
     } else {
       db.collection("other-meals")
         .doc(newDetails.name)
         .set(newDetails);
-      // .add(newPizza).then(docRef => {
-      //   console.log(`Document ID: ${docRef.id}}`)
-      // })
     }
   };
 
