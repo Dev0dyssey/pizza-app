@@ -93,8 +93,6 @@ const MainPage = props => {
   return (
     <>
       <NavBar />
-      <h3>List of ranked pizzas</h3>
-      <br />
       <div className="row">{generateList()}</div>
       <button
         className="btn btn-primary col text-center"

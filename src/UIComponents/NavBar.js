@@ -36,17 +36,11 @@ const NavBar = () => {
               <i className="fas fa-utensils ml-3"></i>
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              The twilight zone
-              <i className="fas fa-biohazard ml-3"></i>
-            </a>
-          </li>
         </ul>
-        <button className="btn btn-danger" onClick={() => app.auth().signOut()}>
-          Log out
-        </button>
       </div>
+      <button className="btn btn-danger" onClick={() => app.auth().signOut()}>
+        Log out
+      </button>
     </nav>
   );
 };
