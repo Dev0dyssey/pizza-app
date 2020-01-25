@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../StyleSheets/modal.css";
 import app from "../../base";
 import { db } from "../../base";
@@ -10,10 +10,6 @@ const DetailsModal = props => {
   const [addedComment, setComment] = useState("");
   // Ratings state to be used in adding more ratings in order to calculate average rating
   const [addedRating, addRating] = useState(0);
-
-  useEffect(() => {
-    console.log(`Document has been updated!`);
-  });
 
   const databaseName =
     props.detailsOf === `pizza` ? `pizza-collection` : `other-meals`;
