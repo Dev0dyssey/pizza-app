@@ -25,6 +25,8 @@ const DetailsModal = props => {
       .update({
         ratings: [...props.avgRating, addedRating]
       });
+    setComment("");
+    console.log(addedComment);
   };
 
   const deleteComment = (name, comment) => {
@@ -59,7 +61,7 @@ const DetailsModal = props => {
               data-dismiss="modal"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
+              <span>&times;</span>
             </button>
           </div>
           <div className="modal-body">
@@ -160,6 +162,7 @@ const DetailsModal = props => {
               <textarea
                 className="form-control"
                 placeholder="Comments"
+                value={addedComment}
                 onChange={e => {
                   const newComment = e.target.value;
                   setComment(newComment);
