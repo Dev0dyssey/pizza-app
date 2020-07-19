@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "../../StyleSheets/modal.css";
 import app from "../../base";
 import { db } from "../../base";
+import { calculateAverage } from "../../Helpers/calculateAverage";
 
-const DetailsModal = props => {
+const DetailsModal = (props) => {
   // Destructure values out of the props object
   const { name, owner, comment, comments, avgRating } = props;
   // New comments state
@@ -19,11 +20,12 @@ const DetailsModal = props => {
       .doc(props.name)
       .collection("comments")
       .add({ comment: addedComment, userID: app.auth().currentUser.uid })
-      .catch(error => `Something went wrong: ${error}`);
+      .catch((error) => `Something went wrong: ${error}`);
     db.collection(databaseName)
       .doc(props.name)
       .update({
-        ratings: [...props.avgRating, addedRating]
+        ratings: [...props.avgRating, addedRating],
+        averageRatings: calculateAverage(avgRating),
       });
     setComment("");
     console.log(addedComment);
@@ -37,12 +39,12 @@ const DetailsModal = props => {
     deleteRef
       .where("comment", "==", comment)
       .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
           deleteRef.doc(doc.id).delete();
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`Error deleting comments ${err}`);
       });
   };
@@ -149,7 +151,7 @@ const DetailsModal = props => {
                           className="ml-1 far fa-trash-alt deleteBtn"
                           data-dismiss="modal"
                           onClick={() => deleteComment(name, comment.comment)}
-                        ></i>
+                        />
                       </li>
                     );
                   } else {
@@ -163,11 +165,11 @@ const DetailsModal = props => {
                 className="form-control"
                 placeholder="Comments"
                 value={addedComment}
-                onChange={e => {
+                onChange={(e) => {
                   const newComment = e.target.value;
                   setComment(newComment);
                 }}
-              ></textarea>
+              />
             </div>
           </div>
 

@@ -7,14 +7,14 @@ import SignUp from "./Components/SignUp";
 import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
 import NewPizzasOverview from "./Components/NewPizzaSection/NewPizzasOverview";
-import OtherMeals from "./Components/OtherMeals";
+import OtherMeals from "./Components/OtherMeals/OtherMeals.jsx";
 import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
     <div className="container landing">
       <div className="row">
-        <div className="col-2"></div>
+        <div className="col-2" />
         <div className="col-8 min-vh-100">
           <Router history={history}>
             <AuthProvider>
@@ -37,7 +37,7 @@ const App = () => {
             </AuthProvider>
           </Router>
         </div>
-        <div className="col-2"></div>
+        <div className="col-2" />
       </div>
     </div>
   );
