@@ -9,7 +9,7 @@ const LogIn = ({ history }) => {
   const [emailStatus, changeStatus] = useState(false);
 
   const handleLogin = useCallback(
-    async event => {
+    async (event) => {
       event.preventDefault();
       const { email, password } = event.target.elements;
       try {
@@ -32,7 +32,7 @@ const LogIn = ({ history }) => {
       .then(() => {
         changeStatus(true);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`An error has occured`, err);
       });
   };
@@ -45,7 +45,9 @@ const LogIn = ({ history }) => {
 
   return (
     <div className="jumbotron mt-5">
-      <h1>An amazing pizza rating App!</h1>
+      <h1 className="d-none d-md-block d-lg-block d-xl-block">
+        An amazing pizza rating App!
+      </h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label for="examplePizza">Pizza user email</label>
@@ -110,11 +112,11 @@ const LogIn = ({ history }) => {
                       type="email"
                       className="form-control"
                       placeholder="Please enter the email you used to register"
-                      onChange={e => {
+                      onChange={(e) => {
                         const resetEmail = e.target.value;
                         setEmail(resetEmail);
                       }}
-                    ></input>
+                    />
                   )}
                 </div>
               </div>

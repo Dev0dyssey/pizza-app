@@ -1,26 +1,32 @@
 .bgImg {
-    height: 75vh;
-    background-repeat: no-repeat;
-    background-image: url(https://www.pngrepo.com/download/201515/pizza-slice-pizza.png);
-    background-size: 200px 250px;
-    background-position-x: 95%;
-    background-position-y: 15%;
+  height: 75vh;
+  background-repeat: no-repeat;
+  background-image: url(https://www.pngrepo.com/download/201515/pizza-slice-pizza.png);
+  background-size: 200px 250px;
+  background-position-x: 95%;
+  background-position-y: 15%;
+}
+
+@media (max-width: 375px) {
+  .bgImg {
+    background-image: none;
+  }
 }
 
 .jumbotron {
-    background-color: hsla(120, 100%, 50%, 0);
+  background-color: hsla(120, 100%, 50%, 0);
 }
 
 .background-pizza {
-    position: relative;
-    right: 5%;
-    top: 10%;
+  position: relative;
+  right: 5%;
+  top: 10%;
 }
 
 .resetBtn {
-    color: blue;
+  color: blue;
 }
 
 .resetBtn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
