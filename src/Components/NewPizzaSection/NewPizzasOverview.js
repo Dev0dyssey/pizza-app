@@ -6,7 +6,7 @@ import { db } from "../../base";
 
 import "../../StyleSheets/main.css";
 
-const MainPage = props => {
+const MainPage = (props) => {
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
@@ -19,25 +19,26 @@ const MainPage = props => {
   useEffect(() => {
     db.collection("pizza-collection")
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          setList(pizzaList => [...pizzaList, doc.data()]);
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setList((pizzaList) => [...pizzaList, doc.data()]);
         });
       });
   }, []);
 
-  const ratingDetails = val => {
-    getRating(val.ratings);
-    setComment(val.comment);
-    setPizza(val.name);
-    setOwner(val.owner);
+  const ratingDetails = (val) => {
+    const { ratings, comment, name, owner } = val;
+    getRating(ratings);
+    setComment(comment);
+    setPizza(name);
+    setOwner(owner);
     db.collection("pizza-collection")
-      .doc(val.name)
+      .doc(name)
       .collection("comments")
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          getComments(existingComments => [...existingComments, doc.data()]);
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          getComments((existingComments) => [...existingComments, doc.data()]);
         });
       });
   };
@@ -47,7 +48,7 @@ const MainPage = props => {
       (a, b) => parseFloat(b.added.seconds) - parseFloat(a.added.seconds)
     );
     return pizzaList
-      .filter(pizza => now - pizza.added.seconds < oneDay)
+      .filter((pizza) => now - pizza.added.seconds < oneDay)
       .map((pizza, index) => {
         return (
           <div className="col-md-4 col-sm-1 d-flex" key={index}>

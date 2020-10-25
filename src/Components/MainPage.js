@@ -6,7 +6,7 @@ import { db } from "../base";
 
 import "../StyleSheets/main.css";
 
-const MainPage = props => {
+const MainPage = (props) => {
   const [comment, setComment] = useState("Placeholder Comment");
   const [pizzaName, setPizza] = useState("Placeholder Pizza");
   const [pizzaList, setList] = useState([]);
@@ -17,28 +17,30 @@ const MainPage = props => {
   useEffect(() => {
     db.collection("pizza-collection")
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          setList(pizzaList => [...pizzaList, doc.data()]);
+      .then((querySnapshot) => {
+        console.log("SNAPSHOT QUERY");
+        querySnapshot.forEach((doc) => {
+          setList((pizzaList) => [...pizzaList, doc.data()]);
         });
       });
   }, []);
 
-  const ratingDetails = val => {
+  const ratingDetails = (val) => {
     existingComments.splice(0);
-    getRating(val.ratings);
-    setComment(val.comment);
-    setPizza(val.name);
-    setOwner(val.owner);
+    const { ratings, comment, name, owner } = val;
+    getRating(ratings);
+    setComment(comment);
+    setPizza(name);
+    setOwner(owner);
     // Get existing comments from the collection
     // Pass the comment state as a prop to the modal render
     db.collection("pizza-collection")
-      .doc(val.name)
+      .doc(name)
       .collection("comments")
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          getComments(existingComments => [...existingComments, doc.data()]);
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          getComments((existingComments) => [...existingComments, doc.data()]);
         });
       });
   };
@@ -57,7 +59,7 @@ const MainPage = props => {
             />
             <div className="card-img-overlay d-flex flex-column">
               <span className="badge badge-primary" style={{ width: "1rem" }}>
-                {pizza.rating}
+                {Math.round(pizza.rating)}
               </span>
               <br />
               <button
@@ -102,7 +104,7 @@ const MainPage = props => {
         Add Pizza!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewEntry adding="pizza" />
+        <NewEntry adding="pizza" setTest={setList} currentList={pizzaList} />
       </div>
     </>
   );

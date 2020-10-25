@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../base";
 
-const NewEntry = props => {
+const NewEntry = (props) => {
   // New pizza object{} that gets passed to the database to create new entries
   const [newDetails, addDetails] = useState({
     owner: db.app.auth().currentUser.displayName,
@@ -11,7 +11,7 @@ const NewEntry = props => {
     rating: "",
     ratings: [],
     comment: "",
-    added: new Date(Date.now())
+    added: new Date(Date.now()),
   });
 
   const handleSubmit = () => {
@@ -19,6 +19,7 @@ const NewEntry = props => {
       db.collection("pizza-collection")
         .doc(newDetails.name)
         .set(newDetails);
+      props.setTest([...props.currentList, newDetails]);
     } else {
       db.collection("other-meals")
         .doc(newDetails.name)
@@ -52,39 +53,39 @@ const NewEntry = props => {
                     type="text"
                     className="form-control mr-1"
                     placeholder="Pizza Name"
-                    onChange={e => {
+                    onChange={(e) => {
                       const name = e.target.value;
-                      addDetails(newDetails => {
+                      addDetails((newDetails) => {
                         return { ...newDetails, name };
                       });
                     }}
-                  ></input>
+                  />
                 </div>
                 <div className="form-group col-md-6">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Restaurant"
-                    onChange={e => {
+                    onChange={(e) => {
                       const restaurant = e.target.value;
-                      addDetails(newDetails => {
+                      addDetails((newDetails) => {
                         return { ...newDetails, restaurant };
                       });
                     }}
-                  ></input>
+                  />
                 </div>
                 <div className="input-group mb-3">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Photo"
-                    onChange={e => {
+                    onChange={(e) => {
                       const photo = e.target.value;
-                      addDetails(newDetails => {
+                      addDetails((newDetails) => {
                         return { ...newDetails, photo };
                       });
                     }}
-                  ></input>
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -94,13 +95,13 @@ const NewEntry = props => {
                   rows="5"
                   id="pizzaComment"
                   style={{ resize: "none" }}
-                  onChange={e => {
+                  onChange={(e) => {
                     const comment = e.target.value;
-                    addDetails(newDetails => {
+                    addDetails((newDetails) => {
                       return { ...newDetails, comment };
                     });
                   }}
-                ></textarea>
+                />
               </div>
             </div>
             <br />
@@ -116,7 +117,7 @@ const NewEntry = props => {
                 id="inlineRadio1"
                 value="option1"
                 onClick={() =>
-                  addDetails(newDetails => {
+                  addDetails((newDetails) => {
                     return { ...newDetails, rating: 1 };
                   })
                 }
@@ -131,7 +132,7 @@ const NewEntry = props => {
                 id="inlineRadio2"
                 value="option2"
                 onClick={() =>
-                  addDetails(newDetails => {
+                  addDetails((newDetails) => {
                     return { ...newDetails, rating: 2 };
                   })
                 }
@@ -146,7 +147,7 @@ const NewEntry = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addDetails(newDetails => {
+                  addDetails((newDetails) => {
                     return { ...newDetails, rating: 3 };
                   })
                 }
@@ -161,7 +162,7 @@ const NewEntry = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addDetails(newDetails => {
+                  addDetails((newDetails) => {
                     return { ...newDetails, rating: 4 };
                   })
                 }
@@ -177,7 +178,7 @@ const NewEntry = props => {
                 id="inlineRadio3"
                 value="option3"
                 onClick={() =>
-                  addDetails(newDetails => {
+                  addDetails((newDetails) => {
                     return { ...newDetails, rating: 5 };
                   })
                 }

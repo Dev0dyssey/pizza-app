@@ -24,6 +24,7 @@ const DetailsModal = (props) => {
     db.collection(databaseName)
       .doc(props.name)
       .update({
+        rating: calculateAverage(avgRating),
         ratings: [...props.avgRating, addedRating],
         averageRatings: calculateAverage(avgRating),
       });
