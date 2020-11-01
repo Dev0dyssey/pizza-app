@@ -46,7 +46,7 @@ const NewEntry = (props) => {
           </div>
           <div className="modal-body">
             <p>Enter below Pizza information:</p>
-            <div className="form">
+            <div className="form" id="myForm">
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <input
