@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { db } from "../../base";
 
 const NewEntry = (props) => {
+  const emptyDetails = {
+    owner: db.app.auth().currentUser.displayName,
+    name: "",
+    photo: "",
+    restaurant: "",
+    rating: "",
+    ratings: [],
+    comment: "",
+    added: new Date(Date.now()),
+  };
+
   // New pizza object{} that gets passed to the database to create new entries
   const [newDetails, addDetails] = useState({
     owner: db.app.auth().currentUser.displayName,
@@ -14,6 +25,11 @@ const NewEntry = (props) => {
     added: new Date(Date.now()),
   });
 
+  const clearData = () => {
+    addDetails(emptyDetails);
+    console.log("Current Object: ", newDetails);
+  };
+
   const handleSubmit = () => {
     if (props.adding === "pizza") {
       db.collection("pizza-collection")
@@ -25,6 +41,8 @@ const NewEntry = (props) => {
         .doc(newDetails.name)
         .set(newDetails);
     }
+
+    clearData();
   };
 
   return (
@@ -53,6 +71,7 @@ const NewEntry = (props) => {
                     type="text"
                     className="form-control mr-1"
                     placeholder="Pizza Name"
+                    value={newDetails.name}
                     onChange={(e) => {
                       const name = e.target.value;
                       addDetails((newDetails) => {
@@ -66,6 +85,7 @@ const NewEntry = (props) => {
                     type="text"
                     className="form-control"
                     placeholder="Restaurant"
+                    value={newDetails.restaurant}
                     onChange={(e) => {
                       const restaurant = e.target.value;
                       addDetails((newDetails) => {
@@ -79,6 +99,7 @@ const NewEntry = (props) => {
                     type="text"
                     className="form-control"
                     placeholder="Photo"
+                    value={newDetails.photo}
                     onChange={(e) => {
                       const photo = e.target.value;
                       addDetails((newDetails) => {
@@ -95,6 +116,7 @@ const NewEntry = (props) => {
                   rows="5"
                   id="pizzaComment"
                   style={{ resize: "none" }}
+                  value={newDetails.comment}
                   onChange={(e) => {
                     const comment = e.target.value;
                     addDetails((newDetails) => {
