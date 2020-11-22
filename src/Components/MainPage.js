@@ -53,7 +53,8 @@ const MainPage = (props) => {
           <div className="card text-white" style={{ marginBottom: "1rem" }}>
             <img
               className="card-img-top"
-              src={pizza.photo}
+              // Handling previous version of storing images. When all images changed to Firestore storage, remove ternary expression
+              src={pizza.imageUrl ? pizza.imageUrl : pizza.photo}
               alt={pizza}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />

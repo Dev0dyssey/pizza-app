@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { db } from "../../base";
+import { db, storage } from "../../base";
 
 const NewEntry = (props) => {
   const emptyDetails = {
@@ -25,12 +25,41 @@ const NewEntry = (props) => {
     added: new Date(Date.now()),
   });
 
+  const [file, setFile] = useState(null);
+  const [uploaded, setUploaded] = useState(false);
+
   const clearData = () => {
     addDetails(emptyDetails);
     console.log("Current Object: ", newDetails);
   };
 
+  const clearImage = () => {
+    setFile(null);
+  };
+
+  const uploadImage = () => {
+    const uploadTask = storage.ref(`images/${file.name}`).put(file);
+    uploadTask.on("state_changed", console.log, console.error, () => {
+      setUploaded(true);
+      storage
+        .ref("images")
+        .child(file.name)
+        .getDownloadURL()
+        .then((imageUrl) => {
+          setFile(null);
+          addDetails((newDetails) => {
+            return { ...newDetails, imageUrl };
+          });
+        });
+    });
+  };
+
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = () => {
+    setUploaded(false);
     if (props.adding === "pizza") {
       db.collection("pizza-collection")
         .doc(newDetails.name)
@@ -95,19 +124,27 @@ const NewEntry = (props) => {
                   />
                 </div>
                 <div className="input-group mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Photo"
-                    value={newDetails.photo}
-                    onChange={(e) => {
-                      const photo = e.target.value;
-                      addDetails((newDetails) => {
-                        return { ...newDetails, photo };
-                      });
-                    }}
-                  />
+                  <input type="file" onChange={handleChange} />
                 </div>
+              </div>
+              <div
+                className="form-group"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <button
+                  className="btn btn-primary mr-1"
+                  disabled={!file}
+                  onClick={uploadImage}
+                >
+                  Confirm Image
+                </button>
+                <button
+                  className="btn btn-danger ml-1"
+                  disabled={!file}
+                  onClick={clearImage}
+                >
+                  Clear Image
+                </button>
               </div>
               <div className="form-group">
                 <label for="pizzaComment">Comment(s)</label>
@@ -221,10 +258,16 @@ const NewEntry = (props) => {
               className="btn btn-primary"
               onClick={handleSubmit}
               data-dismiss="modal"
+              disabled={!newDetails.imageUrl}
             >
               Save changes
             </button>
           </div>
+          {!uploaded && (
+            <div className="alert alert-danger" role="alert">
+              Please attach an image of your amazing meal!
+            </div>
+          )}
         </div>
       </div>
     </>
