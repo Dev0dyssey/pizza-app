@@ -4,7 +4,7 @@ import app from "../base";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg pl-0 navbar-light">
+    <nav className="navbar sticky-top navbar-expand-lg pl-0 pr-0 navbar-light bg-white">
       <button
         className="navbar-toggler"
         type="button"

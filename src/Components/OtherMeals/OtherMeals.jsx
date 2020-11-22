@@ -47,11 +47,11 @@ const OtherMeals = (props) => {
     );
     return mealList.map((meal, index) => {
       return (
-        <div className="col-md-4 col-sm-1 d-flex" key={index}>
+        <div className="col-lg-4 col-sm-12 d-flex" key={index}>
           <div className="card text-white" style={{ marginBottom: "1rem" }}>
             <img
               className="card-img-top"
-              src={meal.photo}
+              src={meal.imageUrl ? meal.imageUrl : meal.photo}
               alt={meal}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -103,7 +103,7 @@ const OtherMeals = (props) => {
         Add Meal!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewEntry adding="meal" />
+        <NewEntry adding="meal" setList={setMeals} currentList={mealList} />
       </div>
     </>
   );

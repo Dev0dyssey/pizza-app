@@ -18,7 +18,6 @@ const MainPage = (props) => {
     db.collection("pizza-collection")
       .get()
       .then((querySnapshot) => {
-        console.log("SNAPSHOT QUERY");
         querySnapshot.forEach((doc) => {
           setList((pizzaList) => [...pizzaList, doc.data()]);
         });
@@ -49,7 +48,7 @@ const MainPage = (props) => {
     pizzaList.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
     return pizzaList.map((pizza, index) => {
       return (
-        <div className="col-md-4 col-sm-1 d-flex" key={index}>
+        <div className="col-lg-4 col-sm-12 d-flex" key={index}>
           <div className="card text-white" style={{ marginBottom: "1rem" }}>
             <img
               className="card-img-top"
@@ -105,7 +104,7 @@ const MainPage = (props) => {
         Add Pizza!
       </button>
       <div className="modal fade" id="newPizza" tabIndex="-1" role="dialog">
-        <NewEntry adding="pizza" setTest={setList} currentList={pizzaList} />
+        <NewEntry adding="pizza" setList={setList} currentList={pizzaList} />
       </div>
     </>
   );

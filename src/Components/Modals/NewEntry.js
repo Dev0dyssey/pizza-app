@@ -64,11 +64,12 @@ const NewEntry = (props) => {
       db.collection("pizza-collection")
         .doc(newDetails.name)
         .set(newDetails);
-      props.setTest([...props.currentList, newDetails]);
+      props.setList([...props.currentList, newDetails]);
     } else {
       db.collection("other-meals")
         .doc(newDetails.name)
         .set(newDetails);
+      props.setList([...props.currentList, newDetails]);
     }
 
     clearData();
@@ -123,8 +124,16 @@ const NewEntry = (props) => {
                     }}
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <input type="file" onChange={handleChange} />
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                  <label for="imageUploadContainer">Pizza Image</label>
+                  <input
+                    type="file"
+                    className="form-control-file"
+                    id="imageUploadContainer"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div
@@ -132,14 +141,14 @@ const NewEntry = (props) => {
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <button
-                  className="btn btn-primary mr-1"
+                  className="btn btn-primary btn-sm mr-1"
                   disabled={!file}
                   onClick={uploadImage}
                 >
                   Confirm Image
                 </button>
                 <button
-                  className="btn btn-danger ml-1"
+                  className="btn btn-danger btn-sm ml-1"
                   disabled={!file}
                   onClick={clearImage}
                 >
