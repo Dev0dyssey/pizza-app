@@ -125,8 +125,8 @@ const NewEntry = (props) => {
                   />
                 </div>
               </div>
-              <div className="form-row">
-                <div className="form-group col-md-12">
+              <div className="form-row image-input">
+                <div className="form-group col-md-6">
                   <label for="imageUploadContainer">Pizza Image</label>
                   <input
                     type="file"
@@ -134,6 +134,9 @@ const NewEntry = (props) => {
                     id="imageUploadContainer"
                     onChange={handleChange}
                   />
+                </div>
+                <div className="col-md-6">
+                    <img src="https://bit.ly/348xm7G" alt="Preview" style={{ width: "100%", height: "100%" }}></img>
                 </div>
               </div>
               <div

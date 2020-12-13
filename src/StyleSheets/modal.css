@@ -9,3 +9,7 @@
 .deleteBtn:hover {
     cursor: pointer;
 }
+
+.image-input {
+    margin-bottom: 1rem;
+}
