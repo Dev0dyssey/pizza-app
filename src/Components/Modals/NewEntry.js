@@ -27,6 +27,7 @@ const NewEntry = (props) => {
 
   const [file, setFile] = useState(null);
   const [uploaded, setUploaded] = useState(false);
+  const [previewImage, setPreview] = useState("");
 
   const clearData = () => {
     addDetails(emptyDetails);
@@ -47,6 +48,8 @@ const NewEntry = (props) => {
         .getDownloadURL()
         .then((imageUrl) => {
           setFile(null);
+          setPreview(imageUrl);
+          console.log('Image: ', previewImage)
           addDetails((newDetails) => {
             return { ...newDetails, imageUrl };
           });
@@ -136,7 +139,9 @@ const NewEntry = (props) => {
                   />
                 </div>
                 <div className="col-md-6">
-                    <img src="https://bit.ly/348xm7G" alt="Preview" style={{ width: "100%", height: "100%" }}></img>
+                  {
+                    previewImage ? <img src={previewImage} alt="Preview" style={{ width: "100%", height: "100%" }}></img> : null
+                  }
                 </div>
               </div>
               <div
