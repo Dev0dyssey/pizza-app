@@ -21,7 +21,7 @@ app
   .auth()
   .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   .then(function() {
-    return console.log("I am working");
+    return console.log("I am working 2021");
   })
   .catch(function(error) {
     // Handle Errors here.
