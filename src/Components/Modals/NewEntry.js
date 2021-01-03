@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { db, storage } from "../../base";
 
 const NewEntry = (props) => {
+  const ref = useRef();
   const emptyDetails = {
     owner: db.app.auth().currentUser.displayName,
     name: "",
@@ -25,16 +26,19 @@ const NewEntry = (props) => {
     added: new Date(Date.now()),
   });
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("");
   const [uploaded, setUploaded] = useState(false);
   const [previewImage, setPreview] = useState("");
 
   const clearData = () => {
     addDetails(emptyDetails);
+    setPreview("");
+    clearImage();
     console.log("Current Object: ", newDetails);
   };
 
   const clearImage = () => {
+    ref.current.value = ""
     setFile(null);
   };
 
@@ -49,7 +53,6 @@ const NewEntry = (props) => {
         .then((imageUrl) => {
           setFile(null);
           setPreview(imageUrl);
-          console.log('Image: ', previewImage)
           addDetails((newDetails) => {
             return { ...newDetails, imageUrl };
           });
@@ -135,6 +138,9 @@ const NewEntry = (props) => {
                     type="file"
                     className="form-control-file"
                     id="imageUploadContainer"
+                    //Input file is always an uncontrolled component. Therefore we need to use the DOM ref (useRef()) to manually clear the component
+                    //https://stackoverflow.com/questions/60986168/react-how-to-clear-file-input-and-data-input-fields-after-submitting-form
+                    ref={ref}
                     onChange={handleChange}
                   />
                 </div>
@@ -267,6 +273,7 @@ const NewEntry = (props) => {
               type="button"
               className="btn btn-secondary"
               data-dismiss="modal"
+              onClick={() => clearData()}
             >
               Close
             </button>
