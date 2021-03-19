@@ -69,7 +69,7 @@ const DetailsModal = (props) => {
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
-            <p>Click to order from store</p>
+            <p>Click to order from store!</p>
             <h5>
               Average Rating:
               {isNaN(avgRating)
