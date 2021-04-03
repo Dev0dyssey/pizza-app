@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../StyleSheets/modal.css";
+import "../../StyleSheets/modal.scss";
 import app from "../../base";
 import { db } from "../../base";
 import { calculateAverage } from "../../Helpers/calculateAverage";
@@ -69,7 +69,15 @@ const DetailsModal = (props) => {
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
-            <p>Click to order from store!</p>
+            {/* ADD CONTAINER FLUID WHEN WE NEED TO USE CSS GRID */}
+            <div className="container-fluid">
+              <div className="row order-link">
+                <p>Click to order!</p>
+                <button className="link-button">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+              </div>
+            </div>
             <h5>
               Average Rating:
               {isNaN(avgRating)

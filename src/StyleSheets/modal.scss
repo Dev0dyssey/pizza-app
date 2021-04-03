@@ -1,0 +1,41 @@
+.modal-content {
+    color: black;
+}
+
+.deleteBtn {
+    color: red;
+}
+
+.deleteBtn:hover {
+    cursor: pointer;
+}
+
+.image-input {
+    margin-bottom: 1rem;
+}
+
+.order-link {
+    display: flex;
+    align-items: baseline;
+
+    i {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .link-button {
+        color: rgb(85, 85, 255);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        display: inline;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .link-button:hover,
+      .link-button:focus {
+        text-decoration: none;
+      }
+}
