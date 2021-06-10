@@ -74,7 +74,7 @@ const DetailsModal = (props) => {
               <div className="row order-link">
                 <p>Click to order!</p>
                 <button className="link-button">
-                  <i class="fas fa-shopping-cart"></i>
+                  <i className="fas fa-shopping-cart"></i>
                 </button>
               </div>
             </div>
