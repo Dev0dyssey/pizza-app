@@ -1,7 +1,17 @@
 import React, { useState, useRef } from "react";
 import { db, storage } from "../../base";
+import * as ml5 from "ml5";
+
+
 
 const NewEntry = (props) => {
+
+  const modelLoaded = () => {
+    console.log('Model Loaded')
+  }
+
+  const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+
   const ref = useRef();
   const emptyDetails = {
     owner: db.app.auth().currentUser.displayName,
@@ -91,18 +101,17 @@ const NewEntry = (props) => {
             </h5>
             <button
               type="button"
-              className="close"
-              data-dismiss="modal"
+              className="btn-close"
+              data-bs-dismiss="modal"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className="modal-body">
             <p>Enter below Pizza information:</p>
             <div className="form" id="myForm">
               <div className="form-row">
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-12 mb-3">
                   <input
                     type="text"
                     className="form-control mr-1"
@@ -116,7 +125,7 @@ const NewEntry = (props) => {
                     }}
                   />
                 </div>
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-12 mb-3">
                   <input
                     type="text"
                     className="form-control"
@@ -155,12 +164,17 @@ const NewEntry = (props) => {
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <button
-                  className="btn btn-primary btn-sm mr-1"
+                  className="btn btn-primary btn-sm me-1"
                   disabled={!file}
                   onClick={uploadImage}
                 >
                   Confirm Image
                 </button>
+                {/* <button
+                  className="btn btn-seconday btn-sm mr-1"
+                >
+                  Check Image
+                </button> */}
                 <button
                   className="btn btn-danger btn-sm ml-1"
                   disabled={!file}
@@ -188,12 +202,12 @@ const NewEntry = (props) => {
             </div>
             <br />
             Rating:
-            <div className="form-check form-check-inline ml-2 mb-3">
-              <label className="form-check-label mr-1" for="inlineRadio1">
+            <div className="form-check form-check-inline ms-2">
+              <label className="form-check-label" for="inlineRadio1">
                 1
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio1"
@@ -204,11 +218,13 @@ const NewEntry = (props) => {
                   })
                 }
               />
-              <label className="form-check-label mr-1" for="inlineRadio2">
+              </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio2">
                 2
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
@@ -219,11 +235,13 @@ const NewEntry = (props) => {
                   })
                 }
               />
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 3
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
@@ -234,11 +252,13 @@ const NewEntry = (props) => {
                   })
                 }
               />
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 4
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
@@ -249,12 +269,13 @@ const NewEntry = (props) => {
                   })
                 }
               />
-
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 5
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
@@ -272,7 +293,7 @@ const NewEntry = (props) => {
             <button
               type="button"
               className="btn btn-secondary"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               onClick={() => clearData()}
             >
               Close

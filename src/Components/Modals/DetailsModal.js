@@ -60,24 +60,21 @@ const DetailsModal = (props) => {
             </h5>
             <button
               type="button"
-              className="close"
-              data-dismiss="modal"
+              className="btn-close"
+              data-bs-dismiss="modal"
               aria-label="Close"
             >
-              <span>&times;</span>
             </button>
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
             {/* ADD CONTAINER FLUID WHEN WE NEED TO USE CSS GRID */}
-            <div className="container-fluid">
               <div className="row order-link">
-                <p>Click to order!</p>
-                <button className="link-button">
-                  <i className="fas fa-shopping-cart"></i>
-                </button>
+                <div className="col mb-3">
+                  <span>Click to order!</span>
+                  <i className="link-button fas fa-shopping-cart ms-2"></i>
+                </div>
               </div>
-            </div>
             <h5>
               Average Rating:
               {isNaN(avgRating)
@@ -90,57 +87,64 @@ const DetailsModal = (props) => {
             <p>{comment}</p>
             <br />
             Rating:
-            <div className="form-check form-check-inline ml-2 mb-3">
-              <label className="form-check-label mr-1" for="inlineRadio1">
+            <div className="form-check form-check-inline ms-2">
+              <label className="form-check-label" for="inlineRadio1">
                 1
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio1"
                 value="option1"
                 onClick={() => addRating(1)}
               />
-              <label className="form-check-label mr-1" for="inlineRadio2">
+            </div>
+            <div className="form-check form-check-inline"> 
+              <label className="form-check-label" for="inlineRadio2">
                 2
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
                 value="option2"
                 onClick={() => addRating(2)}
               />
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 3
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
                 onClick={() => addRating(3)}
               />
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 4
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
                 value="option3"
                 onClick={() => addRating(4)}
               />
-
-              <label className="form-check-label mr-1" for="inlineRadio3">
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" for="inlineRadio3">
                 5
               </label>
               <input
-                className="form-check-input mr-3"
+                className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
@@ -148,7 +152,7 @@ const DetailsModal = (props) => {
                 onClick={() => addRating(5)}
               />
             </div>
-            <div>
+            <div className="mt-3">
               <h5>Comments: </h5>
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
@@ -158,7 +162,7 @@ const DetailsModal = (props) => {
                       <li key={index}>
                         {comment.comment}
                         <i
-                          className="ml-1 far fa-trash-alt deleteBtn"
+                          className="ms-1 far fa-trash-alt deleteBtn"
                           data-dismiss="modal"
                           onClick={() => deleteComment(name, comment.comment)}
                         />
@@ -187,14 +191,14 @@ const DetailsModal = (props) => {
             <button
               type="button"
               className="btn btn-secondary"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
             >
               Close
             </button>
             <button
               type="button"
               className="btn btn-primary"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               onClick={handleSubmit}
               disabled={addedComment !== "" ? false : true}
             >

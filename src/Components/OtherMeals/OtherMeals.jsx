@@ -56,15 +56,15 @@ const OtherMeals = (props) => {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
             <div className="card-img-overlay d-flex flex-column">
-              <span className="badge badge-primary" style={{ width: "2rem" }}>
+              <span className="badge rounded-pill bg-primary" style={{ width: "2rem" }}>
                 {meal.averageRatings}
               </span>
               <br />
               <button
                 onClick={() => ratingDetails(meal)}
                 className="mainBTN mt-auto btn btn-primary"
-                data-toggle="modal"
-                data-target="#exampleModal"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               >
                 {meal.name}
               </button>
@@ -96,9 +96,9 @@ const OtherMeals = (props) => {
       <br />
       <div className="row">{generateList()}</div>
       <button
-        className="btn btn-primary col text-center"
-        data-toggle="modal"
-        data-target="#newPizza"
+        className="btn btn-primary col-12 text-center"
+        data-bs-toggle="modal"
+        data-bs-target="#newPizza"
       >
         Add Meal!
       </button>

@@ -58,15 +58,15 @@ const MainPage = (props) => {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
             <div className="card-img-overlay d-flex flex-column">
-              <span className="badge badge-primary" style={{ width: "1rem" }}>
+              <span className="badge rounded-pill bg-primary" style={{ width: "2rem" }}>
                 {Math.round(pizza.rating)}
               </span>
               <br />
               <button
                 onClick={() => ratingDetails(pizza)}
                 className="mainBTN mt-auto btn btn-primary"
-                data-toggle="modal"
-                data-target="#exampleModal"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               >
                 {pizza.name}
               </button>
@@ -97,9 +97,9 @@ const MainPage = (props) => {
       <NavBar />
       <div className="row">{generateList()}</div>
       <button
-        className="btn btn-primary col text-center"
-        data-toggle="modal"
-        data-target="#newPizza"
+        className="btn btn-primary col-12 text-center"
+        data-bs-toggle="modal"
+        data-bs-target="#newPizza"
       >
         Add Pizza!
       </button>

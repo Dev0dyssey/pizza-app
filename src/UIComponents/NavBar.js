@@ -21,19 +21,19 @@ const NavBar = () => {
           <li className="nav-item">
             <a className="nav-link active" href="/main">
               ALL PIZZAS
-              <i className="fas fa-pizza-slice ml-3"></i>
+              <i className="fas fa-pizza-slice ms-3"></i>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/main/newpizzas">
               New Pizzas
-              <i className="fas fa-fire ml-3"></i>
+              <i className="fas fa-fire ms-3"></i>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/main/othermeals">
               Other meals
-              <i className="fas fa-utensils ml-3"></i>
+              <i className="fas fa-utensils ms-3"></i>
             </a>
           </li>
         </ul>
