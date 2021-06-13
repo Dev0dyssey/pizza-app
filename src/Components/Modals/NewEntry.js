@@ -11,6 +11,7 @@ const NewEntry = (props) => {
   }
 
   const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+  const ratingsArray = [1, 2, 3, 4, 5];
 
   const ref = useRef();
   const emptyDetails = {
@@ -202,11 +203,13 @@ const NewEntry = (props) => {
             </div>
             <br />
             Rating:
-            <div className="form-check form-check-inline ms-2">
-              <label className="form-check-label" for="inlineRadio1">
-                1
-              </label>
-              <input
+            {ratingsArray.map((value, index) => {
+              return (
+                <div className="form-check form-check-inline ms-2">
+                <label className="form-check-label" for="inlineRadio1">
+                  { value }
+                </label>
+                <input
                 className="form-check-input"
                 type="radio"
                 name="inlineRadioOptions"
@@ -214,79 +217,14 @@ const NewEntry = (props) => {
                 value="option1"
                 onClick={() =>
                   addDetails((newDetails) => {
-                    return { ...newDetails, rating: 1 };
+                    return { ...newDetails, rating: value };
                   })
                 }
               />
-              </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio2">
-                2
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="option2"
-                onClick={() =>
-                  addDetails((newDetails) => {
-                    return { ...newDetails, rating: 2 };
-                  })
-                }
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                3
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() =>
-                  addDetails((newDetails) => {
-                    return { ...newDetails, rating: 3 };
-                  })
-                }
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                4
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() =>
-                  addDetails((newDetails) => {
-                    return { ...newDetails, rating: 4 };
-                  })
-                }
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                5
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() =>
-                  addDetails((newDetails) => {
-                    return { ...newDetails, rating: 5 };
-                  })
-                }
-              />
-            </div>
+                </div>
+              )
+            })}
+            
           </div>
 
           <div className="modal-footer">

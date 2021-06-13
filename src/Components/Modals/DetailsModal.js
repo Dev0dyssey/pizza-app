@@ -11,6 +11,7 @@ const DetailsModal = (props) => {
   const [addedComment, setComment] = useState("");
   // Ratings state to be used in adding more ratings in order to calculate average rating
   const [addedRating, addRating] = useState(0);
+  const ratingsArray = [1, 2, 3, 4, 5];
 
   const databaseName =
     props.detailsOf === `pizza` ? `pizza-collection` : `other-meals`;
@@ -87,71 +88,23 @@ const DetailsModal = (props) => {
             <p>{comment}</p>
             <br />
             Rating:
-            <div className="form-check form-check-inline ms-2">
-              <label className="form-check-label" for="inlineRadio1">
-                1
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="option1"
-                onClick={() => addRating(1)}
-              />
-            </div>
-            <div className="form-check form-check-inline"> 
-              <label className="form-check-label" for="inlineRadio2">
-                2
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio2"
-                value="option2"
-                onClick={() => addRating(2)}
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                3
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() => addRating(3)}
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                4
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() => addRating(4)}
-              />
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" for="inlineRadio3">
-                5
-              </label>
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio3"
-                value="option3"
-                onClick={() => addRating(5)}
-              />
-            </div>
+            {ratingsArray.map((value, index) => {
+              return (
+                <div className="form-check form-check-inline ms-2">
+                <label className="form-check-label" for="inlineRadio1">
+                  { value }
+                </label>
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio1"
+                  value="Option"
+                  onClick={() => addRating(value)}
+                />
+                </div>
+              )
+            })}
             <div className="mt-3">
               <h5>Comments: </h5>
               {/* Render out the list of existing comments coming in from the "comments" prop */}
