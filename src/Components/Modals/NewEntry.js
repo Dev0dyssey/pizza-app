@@ -171,11 +171,11 @@ const NewEntry = (props) => {
                 >
                   Confirm Image
                 </button>
-                {/* <button
-                  className="btn btn-seconday btn-sm mr-1"
+                <button
+                  className="btn btn-secondary btn-sm me-1"
                 >
                   Check Image
-                </button> */}
+                </button>
                 <button
                   className="btn btn-danger btn-sm ml-1"
                   disabled={!file}
