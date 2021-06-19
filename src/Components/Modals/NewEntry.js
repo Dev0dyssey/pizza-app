@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import { db, storage } from "../../base";
-// import * as ml5 from "ml5";
+import * as ml5 from "ml5";
 
 
 
 const NewEntry = (props) => {
 
-  // const modelLoaded = () => {
-  //   console.log('Model Loaded')
-  // }
+  const modelLoaded = () => {
+    console.log('Model Loaded')
+  }
 
-  // const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+  const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
   const ratingsArray = [1, 2, 3, 4, 5];
 
   const ref = useRef();
@@ -171,11 +171,11 @@ const NewEntry = (props) => {
                 >
                   Confirm Image
                 </button>
-                <button
+                {/* <button
                   className="btn btn-secondary btn-sm me-1"
                 >
                   Check Image
-                </button>
+                </button> */}
                 <button
                   className="btn btn-danger btn-sm ml-1"
                   disabled={!file}
