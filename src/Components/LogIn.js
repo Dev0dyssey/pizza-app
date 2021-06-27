@@ -45,12 +45,11 @@ const LogIn = ({ history }) => {
 
   return (
     <div className="jumbotron mt-5">
-      <h1 className="d-none d-md-block d-lg-block d-xl-block">
-        An amazing pizza rating App!
+      <h1 className="text-center">
+        vRate!
       </h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label for="examplePizza">Pizza user email</label>
           <input
             name="email"
             type="email"
@@ -59,11 +58,10 @@ const LogIn = ({ history }) => {
             placeholder="Enter Pizza user Email"
           />
           <small id="emailHelp" className="form-text text-muted">
-            We MIGHT share your pizza user tag (*hint* Pineapples are evil).
+            Please enter your registerd email
           </small>
         </div>
-        <div className="form-group">
-          <label for="pizzaUserPassword">Password</label>
+        <div className="form-group pt-2">
           <input
             name="password"
             type="password"
@@ -73,18 +71,20 @@ const LogIn = ({ history }) => {
           />
         </div>
 
-        <button type="submit" className="btn btn-success">
-          Enter
-        </button>
-        <Link to={"/signup"}>
-          <button className="btn btn-primary" style={{ marginLeft: "0.5rem" }}>
-            Sign up
+        <div className="d-grid gap-2 col-md-6 mx-auto loginActionButtons" style={{ marginTop: "1rem" }}>
+          <button type="submit" className="btn btn-success">
+            Enter
           </button>
-        </Link>
-        <div className="resetBtn" style={{ hover: "pointer" }}>
-          <span data-toggle="modal" data-target="#resetPasswordModal">
-            Forgot your password?
-          </span>
+          <Link to={"/signup"}>
+            <button type="button" className="btn btn-primary" style={{ width: "100%" }}>
+              Sign up
+            </button>
+          </Link>
+          <div className="resetBtn" style={{ hover: "pointer" }}>
+            <span data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+              Forgot your password?
+            </span>
+          </div>
         </div>
         <div
           className="modal"

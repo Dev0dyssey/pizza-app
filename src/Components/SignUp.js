@@ -26,7 +26,7 @@ const SignUp = ({ history }) => {
 
   return (
     <div className="jumbotron mt-5">
-      <h1>Create a user profile</h1>
+      <h1>Create a profile</h1>
       <form onSubmit={handleSignup}>
         <div className="form-group">
           <label for="pizzaUserName">Username</label>
@@ -58,7 +58,9 @@ const SignUp = ({ history }) => {
             placeholder="Choose a password"
           />
         </div>
-        <button className="btn btn-primary">Create</button>
+        <div className="d-grid gap-2 col-md-6 pt-5 mx-auto">
+          <button className="btn btn-primary">Create</button>
+        </div>
       </form>
     </div>
   );
