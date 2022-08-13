@@ -1,20 +1,24 @@
 import React, { useCallback } from "react";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { withRouter } from "react-router-dom";
 import app from "../base";
 
 const SignUp = ({ history }) => {
+  const auth = getAuth();
   const handleSignup = useCallback(
     async event => {
       event.preventDefault();
       const { email, password, username } = event.target.elements;
       try {
-        await app
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value)
-          .then(userData => {
-            userData.user.updateProfile({
+        await
+          createUserWithEmailAndPassword(auth, email.value, password.value)
+          .then(() => {
+            updateProfile(auth.currentUser, {
               displayName: username.value
             });
+            // userData.user.updateProfile({
+            //   displayName: username.value
+            // });
           });
         history.push("/main");
       } catch (error) {
@@ -29,7 +33,7 @@ const SignUp = ({ history }) => {
       <h1>Create a profile</h1>
       <form onSubmit={handleSignup}>
         <div className="form-group">
-          <label for="pizzaUserName">Username</label>
+          <label htmlFor="pizzaUserName">Username</label>
           <input
             name="username"
             type="text"
@@ -39,7 +43,7 @@ const SignUp = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label for="examplePizza">Email</label>
+          <label htmlFor="examplePizza">Email</label>
           <input
             name="email"
             type="email"
@@ -49,7 +53,7 @@ const SignUp = ({ history }) => {
           />
         </div>
         <div className="form-group">
-          <label for="pizzaUserPassword">Password</label>
+          <label htmlFor="pizzaUserPassword">Password</label>
           <input
             name="password"
             type="password"

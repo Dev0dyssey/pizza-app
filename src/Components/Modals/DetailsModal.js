@@ -90,8 +90,8 @@ const DetailsModal = (props) => {
             Rating:
             {ratingsArray.map((value, index) => {
               return (
-                <div className="form-check form-check-inline ms-2">
-                <label className="form-check-label" for="inlineRadio1">
+                <div className="form-check form-check-inline ms-2" key={index}>
+                <label className="form-check-label" htmlFor="inlineRadio1">
                   { value }
                 </label>
                 <input

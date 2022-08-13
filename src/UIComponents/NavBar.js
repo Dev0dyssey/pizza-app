@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import app from "../base";
+import { handleSignout } from "../base";
 
 const NavBar = () => {
   return (
@@ -38,7 +39,7 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-      <button className="btn btn-danger" onClick={() => app.auth().signOut()}>
+      <button className="btn btn-danger" onClick={() => handleSignout()}>
         Log out
       </button>
     </nav>

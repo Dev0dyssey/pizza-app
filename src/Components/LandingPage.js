@@ -15,9 +15,9 @@ const Landing = () => {
       >
         <h1>PIZZA RATE</h1>
         <Link to={`/login`}>
-          <btn className="btn btn-primary" style={{ marginTop: "0.5rem" }}>
+          <button className="btn btn-primary" style={{ marginTop: "0.5rem" }}>
             ENTER
-          </btn>
+          </button>
         </Link>
         <br />
         <br />

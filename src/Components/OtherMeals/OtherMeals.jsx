@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import NavBar from "../../UIComponents/NavBar";
 import DetailsModal from "../Modals/DetailsModal";
 import NewEntry from "../Modals/NewEntry";
@@ -15,14 +16,13 @@ const OtherMeals = (props) => {
   const [avgRating, getRating] = useState([]);
 
   useEffect(() => {
-    db.collection(`other-meals`)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setMeals((mealList) => [...mealList, doc.data()]);
-        });
-      });
-  }, []);
+    getDocs(collection(db, "other-meals"))
+       .then((querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+           setMeals((mealList) => [...mealList, doc.data()]);
+         });
+       });
+   }, []);
 
   const ratingDetails = (val) => {
     existingComments.splice(0);

@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
-import app from "./base.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import history from "./history";
 
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const auth = getAuth();
 
   useEffect(() => {
-    app.auth().onAuthStateChanged(setCurrentUser);
+    onAuthStateChanged(auth,(user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        history.push("/");
+      }
+    })
   }, []);
 
   return (

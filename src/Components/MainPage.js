@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewEntry from "./Modals/NewEntry";
@@ -15,8 +16,7 @@ const MainPage = (props) => {
   const [avgRating, getRating] = useState([]);
 
   useEffect(() => {
-    db.collection("pizza-collection")
-      .get()
+   getDocs(collection(db, "pizza-collection"))
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           setList((pizzaList) => [...pizzaList, doc.data()]);
@@ -40,7 +40,7 @@ const MainPage = (props) => {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           getComments((existingComments) => [...existingComments, doc.data()]);
-        });
+        }); 
       });
   };
 

@@ -1,21 +1,18 @@
 import React, { useState, useRef } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db, storage } from "../../base";
-// import * as ml5 from "ml5";
 
 
 
 const NewEntry = (props) => {
+  const auth = getAuth();
+  console.log('DB: ', auth.currentUser)
 
-  // const modelLoaded = () => {
-  //   console.log('Model Loaded')
-  // }
-
-  // const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
   const ratingsArray = [1, 2, 3, 4, 5];
 
   const ref = useRef();
   const emptyDetails = {
-    owner: db.app.auth().currentUser.displayName,
+    owner: auth.currentUser?.displayName,
     name: "",
     photo: "",
     restaurant: "",
@@ -27,7 +24,7 @@ const NewEntry = (props) => {
 
   // New pizza object{} that gets passed to the database to create new entries
   const [newDetails, addDetails] = useState({
-    owner: db.app.auth().currentUser.displayName,
+    owner: auth.currentUser?.displayName,
     name: "",
     photo: "",
     restaurant: "",
@@ -143,7 +140,7 @@ const NewEntry = (props) => {
               </div>
               <div className="form-row image-input">
                 <div className="form-group col-md-6">
-                  <label for="imageUploadContainer">Pizza Image</label>
+                  <label htmlFor="imageUploadContainer">Pizza Image</label>
                   <input
                     type="file"
                     className="form-control-file"
@@ -185,7 +182,7 @@ const NewEntry = (props) => {
                 </button>
               </div>
               <div className="form-group">
-                <label for="pizzaComment">Comment(s)</label>
+                <label htmlFor="pizzaComment">Comment(s)</label>
                 <textarea
                   className="form-control"
                   rows="5"
@@ -205,8 +202,8 @@ const NewEntry = (props) => {
             Rating:
             {ratingsArray.map((value, index) => {
               return (
-                <div className="form-check form-check-inline ms-2">
-                <label className="form-check-label" for="inlineRadio1">
+                <div className="form-check form-check-inline ms-2" key={index}>
+                <label className="form-check-label" htmlFor="inlineRadio1">
                   { value }
                 </label>
                 <input
