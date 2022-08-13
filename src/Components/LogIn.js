@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useContext } from "react";
 import { withRouter, Redirect, Link } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../base";
 import "../StyleSheets/landing.css";
 import { AuthContext } from "../Auth";
 
 const LogIn = ({ history }) => {
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [emailStatus, changeStatus] = useState(false);
 
@@ -13,9 +15,7 @@ const LogIn = ({ history }) => {
       event.preventDefault();
       const { email, password } = event.target.elements;
       try {
-        await app
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
+        await signInWithEmailAndPassword(auth, email.value, password.value);
         history.push("/main");
       } catch (error) {
         alert(error);
@@ -25,7 +25,6 @@ const LogIn = ({ history }) => {
   );
 
   const resetPasswordEmail = () => {
-    console.log(`Reset Password email sent`);
     app
       .auth()
       .sendPasswordResetEmail(email)
