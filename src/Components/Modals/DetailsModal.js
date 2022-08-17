@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { getAuth } from "firebase/auth";
 import "../../StyleSheets/modal.scss";
 import app from "../../base";
 import { db } from "../../base";
 import { calculateAverage } from "../../Helpers/calculateAverage";
 
 const DetailsModal = (props) => {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
   // Destructure values out of the props object
   const { name, owner, comment, comments, avgRating } = props;
   // New comments state
@@ -110,7 +113,7 @@ const DetailsModal = (props) => {
               {/* Render out the list of existing comments coming in from the "comments" prop */}
               <ul>
                 {comments.map((comment, index) => {
-                  if (comment.userID === app.auth().currentUser.uid) {
+                  if (comment.userID === currentUser.uid) {
                     return (
                       <li key={index}>
                         {comment.comment}

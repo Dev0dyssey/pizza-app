@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, collectionGroup, where, doc, getDoc } from "firebase/firestore";
 import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewEntry from "./Modals/NewEntry";
@@ -33,15 +33,22 @@ const MainPage = (props) => {
     setOwner(owner);
     // Get existing comments from the collection
     // Pass the comment state as a prop to the modal render
-    db.collection("pizza-collection")
-      .doc(name)
-      .collection("comments")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          getComments((existingComments) => [...existingComments, doc.data()]);
-        }); 
-      });
+    const snapRef = collection(db, "pizza-collection", name, "comments");
+    getDocs(snapRef).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        getComments((existingComments) => [...existingComments, doc.data()]);
+      })
+    });
+
+    // db.collection("pizza-collection")
+    //   .doc(name)
+    //   .collection("comments")
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //       getComments((existingComments) => [...existingComments, doc.data()]);
+    //     }); 
+    //   });
   };
 
   const generateList = () => {
