@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import NavBar from "../../UIComponents/NavBar";
 import DetailsModal from "../Modals/DetailsModal";
 import NewEntry from "../Modals/NewEntry";
@@ -17,13 +18,12 @@ const MainPage = (props) => {
   const now = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
-    db.collection("pizza-collection")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setList((pizzaList) => [...pizzaList, doc.data()]);
-        });
+    getDocs(collection(db, "pizza-collection"))
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setList((pizzaList) => [...pizzaList, doc.data()]);
       });
+    });
   }, []);
 
   const ratingDetails = (val) => {
@@ -32,15 +32,12 @@ const MainPage = (props) => {
     setComment(comment);
     setPizza(name);
     setOwner(owner);
-    db.collection("pizza-collection")
-      .doc(name)
-      .collection("comments")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          getComments((existingComments) => [...existingComments, doc.data()]);
-        });
-      });
+    const snapRef = collection(db, "pizza-collection", name, "comments");
+    getDocs(snapRef).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        getComments((existingComments) => [...existingComments, doc.data()]);
+      })
+    });
   };
 
   const generateList = () => {

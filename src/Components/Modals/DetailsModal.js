@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
+import { collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import "../../StyleSheets/modal.scss";
 import app from "../../base";
 import { db } from "../../base";
@@ -20,18 +21,18 @@ const DetailsModal = (props) => {
     props.detailsOf === `pizza` ? `pizza-collection` : `other-meals`;
 
   const handleSubmit = () => {
-    db.collection(databaseName)
-      .doc(props.name)
-      .collection("comments")
-      .add({ comment: addedComment, userID: app.auth().currentUser.uid })
-      .catch((error) => `Something went wrong: ${error}`);
-    db.collection(databaseName)
-      .doc(props.name)
-      .update({
-        rating: calculateAverage(avgRating),
-        ratings: [...props.avgRating, addedRating],
-        averageRatings: calculateAverage(avgRating),
-      });
+    const collectionRef = collection(db, databaseName, props.name, "comments");
+    addDoc(collectionRef, { comment: addedComment, userID: currentUser.uid }).then(() => {
+      console.log("Comment added");
+    });
+
+    const ratingsRef = doc(db, databaseName, props.name);
+    updateDoc(ratingsRef, {
+      rating: calculateAverage(avgRating),
+      ratings: [...props.avgRating, addedRating], //arrayUnion() cannot be used as it adds unique values, and we want all ratings even if there are several instance of the same rating
+      averageRatings: calculateAverage(avgRating),
+    })
+
     setComment("");
     console.log(addedComment);
   };

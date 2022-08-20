@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, collectionGroup, where, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewEntry from "./Modals/NewEntry";

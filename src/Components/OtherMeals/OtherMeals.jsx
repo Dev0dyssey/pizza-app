@@ -26,19 +26,18 @@ const OtherMeals = (props) => {
 
   const ratingDetails = (val) => {
     existingComments.splice(0);
-    getRating(val.ratings);
-    setComment(val.comment);
-    setMeal(val.name);
-    setOwner(val.owner);
-    db.collection("other-meals")
-      .doc(val.name)
-      .collection("comments")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          getComments((existingComments) => [...existingComments, doc.data()]);
-        });
-      });
+    const { ratings, comment, name, owner } = val;
+    getRating(ratings);
+    setComment(comment);
+    setMeal(name);
+    setOwner(owner);
+
+    const snapRef = collection(db, "other-meals", name, "comments");
+    getDocs(snapRef).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        getComments((existingComments) => [...existingComments, doc.data()]);
+      })
+    });
   };
 
   const generateList = () => {
