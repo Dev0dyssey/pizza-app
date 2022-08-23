@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove, getDocs, deleteDoc } from "firebase/firestore";
 import "../../StyleSheets/modal.scss";
 import app from "../../base";
 import { db } from "../../base";
@@ -21,7 +21,7 @@ const DetailsModal = (props) => {
     props.detailsOf === `pizza` ? `pizza-collection` : `other-meals`;
 
   const handleSubmit = () => {
-    const collectionRef = collection(db, databaseName, props.name, "comments");
+    const collectionRef = collection(db, databaseName, name, "comments");
     addDoc(collectionRef, { comment: addedComment, userID: currentUser.uid }).then(() => {
       console.log("Comment added");
     });
@@ -38,21 +38,12 @@ const DetailsModal = (props) => {
   };
 
   const deleteComment = (name, comment) => {
-    let deleteRef = db
-      .collection(databaseName)
-      .doc(name)
-      .collection(`comments`);
-    deleteRef
-      .where("comment", "==", comment)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          deleteRef.doc(doc.id).delete();
-        });
+    const collectionRef = collection(db, databaseName, name, "comments");
+    getDocs(collectionRef).then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        deleteDoc(doc.ref);
       })
-      .catch((err) => {
-        console.log(`Error deleting comments ${err}`);
-      });
+    }).then(console.log("Comment Deleted!"))
   };
 
   return (
