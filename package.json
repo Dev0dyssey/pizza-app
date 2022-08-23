@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^4.1.0",
+    "@capacitor/cli": "^4.1.0",
+    "@capacitor/core": "^4.1.0",
+    "@capacitor/ios": "^4.1.0",
     "firebase": "^9.9.2",
     "ml5": "^1.0.0",
     "react": "^16.14.0",
