@@ -6,7 +6,6 @@ import { db, storage } from "../../base";
 
 const NewEntry = (props) => {
   const auth = getAuth();
-  console.log('DB: ', auth.currentUser)
 
   const ratingsArray = [1, 2, 3, 4, 5];
 
