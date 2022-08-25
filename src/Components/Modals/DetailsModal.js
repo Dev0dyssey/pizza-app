@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc, getDocs, deleteDoc } from "firebase/firestore";
 import "../../StyleSheets/modal.scss";
-import app from "../../base";
 import { db } from "../../base";
 import { calculateAverage } from "../../Helpers/calculateAverage";
 

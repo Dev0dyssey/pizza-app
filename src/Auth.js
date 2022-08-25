@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         history.push("/");
       }
     })
-  }, []);
+  }, [auth]);
 
   return (
     <AuthContext.Provider value={{ currentUser }}>

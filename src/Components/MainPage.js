@@ -4,6 +4,7 @@ import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewEntry from "./Modals/NewEntry";
 import { db } from "../base";
+import { Geolocation } from '@capacitor/geolocation';
 
 import "../StyleSheets/main.css";
 
@@ -14,8 +15,13 @@ const MainPage = (props) => {
   const [existingComments, getComments] = useState([]);
   const [owner, setOwner] = useState(null);
   const [avgRating, getRating] = useState([]);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
+    const coordinates = Geolocation.getCurrentPosition()
+    setLocation(coordinates);
+    console.log("Location: ", location);
+
    getDocs(collection(db, "pizza-collection"))
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

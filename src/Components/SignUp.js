@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { withRouter } from "react-router-dom";
-import app from "../base";
 
 const SignUp = ({ history }) => {
   const auth = getAuth();

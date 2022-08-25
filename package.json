@@ -6,6 +6,7 @@
     "@capacitor/android": "^4.1.0",
     "@capacitor/cli": "^4.1.0",
     "@capacitor/core": "^4.1.0",
+    "@capacitor/geolocation": "^4.0.1",
     "@capacitor/ios": "^4.1.0",
     "firebase": "^9.9.2",
     "ml5": "^1.0.0",
