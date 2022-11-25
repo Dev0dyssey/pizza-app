@@ -4,7 +4,7 @@ import NavBar from "../UIComponents/NavBar";
 import DetailsModal from "./Modals/DetailsModal";
 import NewEntry from "./Modals/NewEntry";
 import { db } from "../base";
-import { Geolocation } from '@capacitor/geolocation';
+import { Geolocation } from "@capacitor/geolocation";
 
 import "../StyleSheets/main.css";
 
@@ -18,16 +18,15 @@ const MainPage = (props) => {
   const [location, setLocation] = useState(null);
 
   useEffect(() => {
-    const coordinates = Geolocation.getCurrentPosition()
+    const coordinates = Geolocation.getCurrentPosition();
     setLocation(coordinates);
     console.log("Location: ", location);
 
-   getDocs(collection(db, "pizza-collection"))
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          setList((pizzaList) => [...pizzaList, doc.data()]);
-        });
+    getDocs(collection(db, "pizza-collection")).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setList((pizzaList) => [...pizzaList, doc.data()]);
       });
+    });
   }, []);
 
   const ratingDetails = (val) => {
@@ -43,7 +42,7 @@ const MainPage = (props) => {
     getDocs(snapRef).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         getComments((existingComments) => [...existingComments, doc.data()]);
-      })
+      });
     });
 
     // db.collection("pizza-collection")
@@ -53,7 +52,7 @@ const MainPage = (props) => {
     //   .then((querySnapshot) => {
     //     querySnapshot.forEach((doc) => {
     //       getComments((existingComments) => [...existingComments, doc.data()]);
-    //     }); 
+    //     });
     //   });
   };
 
@@ -71,7 +70,10 @@ const MainPage = (props) => {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
             <div className="card-img-overlay d-flex flex-column">
-              <span className="badge rounded-pill bg-primary" style={{ width: "2rem" }}>
+              <span
+                className="badge rounded-pill bg-primary"
+                style={{ width: "2rem" }}
+              >
                 {Math.round(pizza.rating)}
               </span>
               <br />

@@ -36,8 +36,17 @@ const NavBar = () => {
               <i className="fas fa-utensils ms-3"></i>
             </a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/main">
+              Profile Settings
+              <i class="fas fa-gear ms-3"></i>
+            </a>
+          </li>
         </ul>
       </div>
+      <button className="btn btn-secondary me-1">
+        <i class="fas fa-gear"></i>
+      </button>
       <button className="btn btn-danger" onClick={() => handleSignout()}>
         Log out
       </button>
