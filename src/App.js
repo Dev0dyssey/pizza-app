@@ -8,6 +8,7 @@ import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
 import NewPizzasOverview from "./Components/NewPizzaSection/NewPizzasOverview";
 import OtherMeals from "./Components/OtherMeals/OtherMeals.jsx";
+import ProfileSettings from "./Components/ProfileSettings/ProfileSettings.tsx";
 import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
@@ -33,6 +34,11 @@ const App = () => {
                   exact
                   component={OtherMeals}
                 />
+                <PrivateRoute
+                  path="/main/profilesettings"
+                  exact
+                  component={ProfileSettings}
+                ></PrivateRoute>
               </Switch>
             </AuthProvider>
           </Router>

@@ -9,13 +9,13 @@ export const AuthProvider = ({ children }) => {
   const auth = getAuth();
 
   useEffect(() => {
-    onAuthStateChanged(auth,(user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
       } else {
         history.push("/");
       }
-    })
+    });
   }, [auth]);
 
   return (

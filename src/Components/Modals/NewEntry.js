@@ -2,8 +2,6 @@ import React, { useState, useRef } from "react";
 import { getAuth } from "firebase/auth";
 import { db, storage } from "../../base";
 
-
-
 const NewEntry = (props) => {
   const auth = getAuth();
 
@@ -21,7 +19,7 @@ const NewEntry = (props) => {
     added: new Date(Date.now()),
   };
 
-  // New pizza object{} that gets passed to the database to create new entries
+  // New pizza object{} that gets passed to the database to create new entries.
   const [newDetails, addDetails] = useState({
     owner: auth.currentUser?.displayName,
     name: "",
@@ -45,7 +43,7 @@ const NewEntry = (props) => {
   };
 
   const clearImage = () => {
-    ref.current.value = ""
+    ref.current.value = "";
     setFile(null);
   };
 
@@ -74,14 +72,10 @@ const NewEntry = (props) => {
   const handleSubmit = () => {
     setUploaded(false);
     if (props.adding === "pizza") {
-      db.collection("pizza-collection")
-        .doc(newDetails.name)
-        .set(newDetails);
+      db.collection("pizza-collection").doc(newDetails.name).set(newDetails);
       props.setList([...props.currentList, newDetails]);
     } else {
-      db.collection("other-meals")
-        .doc(newDetails.name)
-        .set(newDetails);
+      db.collection("other-meals").doc(newDetails.name).set(newDetails);
       props.setList([...props.currentList, newDetails]);
     }
 
@@ -101,8 +95,7 @@ const NewEntry = (props) => {
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-            >
-            </button>
+            ></button>
           </div>
           <div className="modal-body">
             <p>Enter below Pizza information:</p>
@@ -151,9 +144,13 @@ const NewEntry = (props) => {
                   />
                 </div>
                 <div className="col-md-6">
-                  {
-                    previewImage ? <img src={previewImage} alt="Preview" style={{ width: "100%", height: "100%" }}></img> : null
-                  }
+                  {previewImage ? (
+                    <img
+                      src={previewImage}
+                      alt="Preview"
+                      style={{ width: "100%", height: "100%" }}
+                    ></img>
+                  ) : null}
                 </div>
               </div>
               <div
@@ -202,25 +199,24 @@ const NewEntry = (props) => {
             {ratingsArray.map((value, index) => {
               return (
                 <div className="form-check form-check-inline ms-2" key={index}>
-                <label className="form-check-label" htmlFor="inlineRadio1">
-                  { value }
-                </label>
-                <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="inlineRadio1"
-                value="option1"
-                onClick={() =>
-                  addDetails((newDetails) => {
-                    return { ...newDetails, rating: value };
-                  })
-                }
-              />
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    {value}
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio1"
+                    value="option1"
+                    onClick={() =>
+                      addDetails((newDetails) => {
+                        return { ...newDetails, rating: value };
+                      })
+                    }
+                  />
                 </div>
-              )
+              );
             })}
-            
           </div>
 
           <div className="modal-footer">

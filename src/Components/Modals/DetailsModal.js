@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, doc, addDoc, updateDoc, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import "../../StyleSheets/modal.scss";
 import { db } from "../../base";
 import { calculateAverage } from "../../Helpers/calculateAverage";
+import { AuthContext } from "../../Auth";
 
 const DetailsModal = (props) => {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+  // const auth = getAuth();
+  const currentUser = useContext(AuthContext);
   // Destructure values out of the props object
   const { name, owner, comment, comments, avgRating } = props;
   // New comments state
@@ -21,7 +29,10 @@ const DetailsModal = (props) => {
 
   const handleSubmit = () => {
     const collectionRef = collection(db, databaseName, name, "comments");
-    addDoc(collectionRef, { comment: addedComment, userID: currentUser.uid }).then(() => {
+    addDoc(collectionRef, {
+      comment: addedComment,
+      userID: currentUser.uid,
+    }).then(() => {
       console.log("Comment added");
     });
 
@@ -30,7 +41,7 @@ const DetailsModal = (props) => {
       rating: calculateAverage(avgRating),
       ratings: [...props.avgRating, addedRating], //arrayUnion() cannot be used as it adds unique values, and we want all ratings even if there are several instance of the same rating
       averageRatings: calculateAverage(avgRating),
-    })
+    });
 
     setComment("");
     console.log(addedComment);
@@ -38,11 +49,13 @@ const DetailsModal = (props) => {
 
   const deleteComment = (name, comment) => {
     const collectionRef = collection(db, databaseName, name, "comments");
-    getDocs(collectionRef).then((querySnapshot) => {
-      querySnapshot.forEach(doc => {
-        deleteDoc(doc.ref);
+    getDocs(collectionRef)
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          deleteDoc(doc.ref);
+        });
       })
-    }).then(console.log("Comment Deleted!"))
+      .then(console.log("Comment Deleted!"));
   };
 
   return (
@@ -58,25 +71,27 @@ const DetailsModal = (props) => {
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-            >
-            </button>
+            ></button>
           </div>
           <div className="modal-body">
             <h4>Added by: {owner}</h4>
             {/* ADD CONTAINER FLUID WHEN WE NEED TO USE CSS GRID */}
-              <div className="row order-link">
-                <div className="col mb-3">
-                  <span>Click to order!</span>
-                  <i className="link-button fas fa-shopping-cart ms-2"></i>
-                </div>
+            <div className="row order-link">
+              <div className="col mb-3">
+                <span>Click to order!</span>
+                <i className="link-button fas fa-shopping-cart ms-2"></i>
               </div>
+            </div>
             <h5>
               Average Rating:
               {isNaN(avgRating)
-                ? ` ${Math.round(
-                    (avgRating.reduce((a, b) => a + b, 0) / avgRating.length) *
-                      100
-                  ) / 100} `
+                ? ` ${
+                    Math.round(
+                      (avgRating.reduce((a, b) => a + b, 0) /
+                        avgRating.length) *
+                        100
+                    ) / 100
+                  } `
                 : ` No Ratings yet `}
             </h5>
             <p>{comment}</p>
@@ -85,19 +100,19 @@ const DetailsModal = (props) => {
             {ratingsArray.map((value, index) => {
               return (
                 <div className="form-check form-check-inline ms-2" key={index}>
-                <label className="form-check-label" htmlFor="inlineRadio1">
-                  { value }
-                </label>
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="inlineRadioOptions"
-                  id="inlineRadio1"
-                  value="Option"
-                  onClick={() => addRating(value)}
-                />
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    {value}
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio1"
+                    value="Option"
+                    onClick={() => addRating(value)}
+                  />
                 </div>
-              )
+              );
             })}
             <div className="mt-3">
               <h5>Comments: </h5>
