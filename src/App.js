@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./Auth";
 import history from "./history";
-import Landing from "./Components/LandingPage";
+import Landing from "./Components/LandingPage.tsx";
 import SignUp from "./Components/SignUp";
 import LogIn from "./Components/LogIn";
 import MainPage from "./Components/MainPage";
