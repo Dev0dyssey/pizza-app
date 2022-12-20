@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PizzaInterface from "../../Interfaces/PizzaInterface";
+import { NavigationButton } from '../../UIComponents/Buttons.js';
 
 const ProfileSettings = (props) => {
   const [pickedArray, setPickedArray] = useState<PizzaInterface[]>([]);
@@ -25,14 +26,9 @@ const ProfileSettings = (props) => {
   return (
     <>
       <h1>PROFILE SETTINGS PAGE</h1>
-      <button
-        type="button"
-        className="btn btn-primary"
-        aria-label="Close"
-        onClick={(event: any) => {
-          test();
-        }}
-      ></button>
+      <NavigationButton label="Show all pizzas" className={'btn-primary'} onClick={test} />
+      <NavigationButton label="Show all other meals" className={'btn-primary'} onClick={test} />
+      <NavigationButton label="Show all" className={'btn-primary'} onClick={test} />
     </>
   );
 };
