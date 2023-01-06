@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 export default interface PizzaInterface {
   owner: string;
   name: string;
