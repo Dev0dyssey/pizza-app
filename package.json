@@ -2,35 +2,24 @@
   "name": "pizza-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
-    "@capacitor/android": "^4.1.0",
-    "@capacitor/cli": "^4.8.1",
-    "@capacitor/core": "^4.1.0",
-    "@capacitor/geolocation": "^4.0.1",
-    "@capacitor/ios": "^4.1.0",
-    "@types/jest": "^29.2.3",
-    "@types/node": "^18.11.9",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
-    "firebase": "^12.13.0",
-    "ml5": "^1.0.0",
+    "@capacitor/android": "^4.8.2",
+    "@capacitor/core": "^4.8.2",
+    "@capacitor/geolocation": "^4.1.0",
+    "@capacitor/ios": "^4.8.2",
+    "firebase": "^12.17.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-hook-form": "^6.15.5",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.45.1",
-    "styled-components": "^5.2.1",
-    "typescript": "^4.9.3"
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "browserslist": {
     "production": [
@@ -45,6 +34,20 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "@capacitor/cli": "^4.8.2",
+    "@types/node": "^22.18.0",
+    "@types/react": "^16.14.67",
+    "@types/react-dom": "^16.9.25",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.34",
+    "@vitejs/plugin-react": "^5.1.4",
+    "jsdom": "^26.1.0",
+    "sass": "^1.102.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "tar": "^7.5.22"
   }
 }
