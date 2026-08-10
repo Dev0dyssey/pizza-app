@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PizzaInterface from "../../Interfaces/PizzaInterface";
-import { NavigationButton } from '../../UIComponents/Buttons.js';
+import { NavigationButton } from '../../UIComponents/Buttons';
 
 const ProfileSettings = (props) => {
   const [pickedArray, setPickedArray] = useState<PizzaInterface[]>([]);
