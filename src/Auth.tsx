@@ -1,10 +1,11 @@
 import {
+  useCallback,
   useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { AuthContext, type AppUser } from "./auth-context";
 import { auth } from "./base";
 import { demoMode } from "./config";
@@ -13,7 +14,17 @@ const demoUser: AppUser = {
   uid: "demo-user",
   displayName: "Demo User",
   email: "demo@example.com",
+  emailVerified: true,
 };
+
+function toAppUser(user: User): AppUser {
+  return {
+    uid: user.uid,
+    displayName: user.displayName,
+    email: user.email,
+    emailVerified: user.emailVerified,
+  };
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<AppUser | null>(
@@ -25,14 +36,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (demoMode) return;
 
     return onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      setCurrentUser(user ? toAppUser(user) : null);
       setLoading(false);
     });
   }, []);
 
+  const refreshCurrentUser = useCallback(async () => {
+    if (demoMode) return;
+
+    const user = auth.currentUser;
+    if (!user) {
+      setCurrentUser(null);
+      return;
+    }
+
+    await user.reload();
+    setCurrentUser(toAppUser(user));
+  }, []);
+
   const value = useMemo(
-    () => ({ currentUser, loading }),
-    [currentUser, loading],
+    () => ({ currentUser, loading, refreshCurrentUser }),
+    [currentUser, loading, refreshCurrentUser],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

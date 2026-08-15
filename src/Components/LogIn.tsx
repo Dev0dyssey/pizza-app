@@ -6,11 +6,8 @@ import {
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth-context";
 import { auth } from "../base";
+import { authErrorMessage, normalizeEmail } from "../Features/Auth/authForm";
 import "../StyleSheets/landing.css";
-
-function messageFrom(error: unknown): string {
-  return error instanceof Error ? error.message : "Something went wrong.";
-}
 
 export default function LogIn() {
   const navigate = useNavigate();
@@ -18,6 +15,8 @@ export default function LogIn() {
   const [resetEmail, setResetEmail] = useState("");
   const [resetSent, setResetSent] = useState(false);
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [resetSubmitting, setResetSubmitting] = useState(false);
 
   if (currentUser) {
     return <Navigate to="/main" replace />;
@@ -28,26 +27,32 @@ export default function LogIn() {
     setError("");
     const form = new FormData(event.currentTarget);
 
+    setSubmitting(true);
     try {
       await signInWithEmailAndPassword(
         auth,
-        String(form.get("email")),
+        normalizeEmail(String(form.get("email"))),
         String(form.get("password")),
       );
       navigate("/main", { replace: true });
     } catch (loginError) {
-      setError(messageFrom(loginError));
+      setError(authErrorMessage(loginError));
+    } finally {
+      setSubmitting(false);
     }
   }
 
   async function resetPassword() {
     setError("");
 
+    setResetSubmitting(true);
     try {
-      await sendPasswordResetEmail(auth, resetEmail);
+      await sendPasswordResetEmail(auth, normalizeEmail(resetEmail));
       setResetSent(true);
     } catch (resetError) {
-      setError(messageFrom(resetError));
+      setError(authErrorMessage(resetError));
+    } finally {
+      setResetSubmitting(false);
     }
   }
 
@@ -81,8 +86,8 @@ export default function LogIn() {
         </div>
         {error && <p className="alert alert-danger mt-3">{error}</p>}
         <div className="d-grid gap-2 col-md-6 mx-auto mt-3">
-          <button type="submit" className="btn btn-success">
-            Sign in
+          <button type="submit" className="btn btn-success" disabled={submitting}>
+            {submitting ? "Signing in…" : "Sign in"}
           </button>
           <Link to="/signup" className="btn btn-primary">
             Sign up
@@ -149,10 +154,10 @@ export default function LogIn() {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  disabled={!resetEmail}
+                  disabled={!resetEmail || resetSubmitting}
                   onClick={() => void resetPassword()}
                 >
-                  Send reset link
+                  {resetSubmitting ? "Sending…" : "Send reset link"}
                 </button>
               )}
             </div>

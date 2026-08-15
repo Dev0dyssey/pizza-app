@@ -22,9 +22,10 @@ npm run dev
 The development server is available at <http://localhost:3000>.
 
 Before starting the app for the first time, copy `.env.example` to `.env.local`
-and replace the placeholder with the `apiKey` from **Firebase Console → Project
-settings → General → Your apps → Web app → Config**. Vite reads environment
-variables at startup, so restart the development server after changing the key.
+and replace each Firebase placeholder with the values from **Firebase Console →
+Project settings → General → Your apps → Web app → Config**. Vite reads
+environment variables at startup, so restart the development server after
+changing the configuration.
 
 To work locally without Firebase, set `VITE_DEMO_MODE=true` in `.env.local`.
 Demo mode bypasses authentication and uses in-memory sample entries, comments,

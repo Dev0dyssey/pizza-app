@@ -4,11 +4,13 @@ export interface AppUser {
   uid: string;
   displayName: string | null;
   email: string | null;
+  emailVerified: boolean;
 }
 
 export interface AuthContextValue {
   currentUser: AppUser | null;
   loading: boolean;
+  refreshCurrentUser: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
