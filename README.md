@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pizza Rate
 
-## Available Scripts
+Pizza Rate is a React and Firebase app for saving, rating, and discussing pizzas
+and other meals. It runs on the web through Vite and can be packaged for iOS and
+Android with Capacitor.
 
-In the project directory, you can run:
+## Requirements
 
-### `npm start`
+- Node.js 22 or newer
+- npm 11 or newer
+- Xcode 26+ and CocoaPods for iOS builds
+- Android Studio Otter (2025.2.1)+ and JDK 21 for Android builds
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Development
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```sh
+npm install
+npm run setup
+npm run dev
+```
 
-### `npm test`
+The development server is available at <http://localhost:3000>.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before starting the app for the first time, copy `.env.example` to `.env.local`
+and replace the placeholder with the `apiKey` from **Firebase Console → Project
+settings → General → Your apps → Web app → Config**. Vite reads environment
+variables at startup, so restart the development server after changing the key.
 
-### `npm run build`
+To work locally without Firebase, set `VITE_DEMO_MODE=true` in `.env.local`.
+Demo mode bypasses authentication and uses in-memory sample entries, comments,
+ratings, and uploads. It is available only through the Vite development server;
+production builds always require Firebase.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Quality checks
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```sh
+npm run check
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This runs ESLint, strict TypeScript checking, Vitest, and a production build.
 
-### `npm run eject`
+## Native apps
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Build the web app before synchronising native projects:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```sh
+npm run build
+npx cap sync
+```

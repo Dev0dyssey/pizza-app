@@ -3,23 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=11"
+  },
   "dependencies": {
-    "@capacitor/android": "^4.8.2",
-    "@capacitor/core": "^4.8.2",
-    "@capacitor/geolocation": "^4.1.0",
-    "@capacitor/ios": "^4.8.2",
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/ios": "^8.5.0",
+    "bootstrap": "^5.3.8",
     "firebase": "^12.17.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.11"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
   },
   "scripts": {
     "start": "vite",
+    "setup": "node scripts/setup-env.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "browserslist": {
     "production": [
@@ -34,20 +41,29 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^4.8.2",
+    "@capacitor/cli": "^8.5.0",
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/bootstrap": "^5.2.11",
     "@types/node": "^22.18.0",
-    "@types/react": "^16.14.67",
-    "@types/react-dom": "^16.9.25",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.34",
-    "@vitejs/plugin-react": "^5.1.4",
-    "jsdom": "^26.1.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "eslint": "^10.8.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.4",
+    "globals": "^17.4.0",
+    "jsdom": "^29.1.1",
     "sass": "^1.102.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^3.2.4"
+    "typescript-eslint": "^8.67.0",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
   },
   "overrides": {
-    "tar": "^7.5.22"
+    "tar": "^7.5.22",
+    "uuid": "^11.1.1"
   }
 }

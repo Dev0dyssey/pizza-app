@@ -1,25 +1,36 @@
 .mainBTN {
-    opacity: 0.5;
+  opacity: 0.85;
 }
 
 .mainBTN:hover {
+  opacity: 1;
+}
+
+.entry-card,
+.entry-image {
+  min-height: 18rem;
+}
+
+.entry-image {
+  object-fit: cover;
+}
+
+.entry-placeholder {
+  background: linear-gradient(135deg, #6c757d, #212529);
+}
+
+.rating-badge {
+  width: fit-content;
+}
+
+.preview-image {
+  max-height: 18rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (hover: none) {
+  .mainBTN {
     opacity: 1;
-}
-
-@media screen 
-and (min-device-width: 375px) and (max-device-width: 667px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
-    .mainBTN {
-        opacity: 1;
-    }
-}
-
-@media screen 
-and (min-device-width: 375px) and (max-device-width: 825px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
-    .mainBTN {
-        opacity: 1;
-    }
+  }
 }

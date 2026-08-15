@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "../StyleSheets/landing.css";
 
-const Landing = () => {
+export default function Landing() {
   return (
     <div className="bgImg">
       <div
@@ -14,10 +13,8 @@ const Landing = () => {
         }}
       >
         <h1>PIZZA RATE</h1>
-        <Link to={`/login`}>
-          <button className="btn btn-primary" style={{ marginTop: "0.5rem" }}>
-            ENTER
-          </button>
+        <Link className="btn btn-primary mt-2" to="/login">
+          Enter
         </Link>
         <br />
         <br />
@@ -25,6 +22,4 @@ const Landing = () => {
       </div>
     </div>
   );
-};
-
-export default Landing;
+}

@@ -1,36 +1,21 @@
-import React, { useState } from "react";
-import PizzaInterface from "../../Interfaces/PizzaInterface";
-import { NavigationButton } from '../../UIComponents/Buttons';
+import { useAuth } from "../../auth-context";
+import NavBar from "../../UIComponents/NavBar";
 
-const ProfileSettings = (props) => {
-  const [pickedArray, setPickedArray] = useState<PizzaInterface[]>([]);
-
-  const test = () => {
-    setPickedArray((pickedArray) => [
-      ...pickedArray,
-      {
-        owner: "John Doe",
-        name: "Test Pizza",
-        photo: "Photo URL",
-        restaurant: "Pizza Restaurant Photo",
-        rating: 5,
-        ratings: [5, 3, 2],
-        comment: "Test comment",
-        added: new Date(Date.now()),
-      },
-    ]);
-
-    console.log("Test was run: ", pickedArray);
-  };
+export default function ProfileSettings() {
+  const { currentUser } = useAuth();
 
   return (
     <>
-      <h1>PROFILE SETTINGS PAGE</h1>
-      <NavigationButton label="Show all pizzas" className={'btn-primary'} onClick={test} />
-      <NavigationButton label="Show all other meals" className={'btn-primary'} onClick={test} />
-      <NavigationButton label="Show all" className={'btn-primary'} onClick={test} />
+      <NavBar />
+      <section className="card p-4">
+        <h1 className="h3">Profile</h1>
+        <dl className="mb-0">
+          <dt>Name</dt>
+          <dd>{currentUser?.displayName || "Not set"}</dd>
+          <dt>Email</dt>
+          <dd>{currentUser?.email}</dd>
+        </dl>
+      </section>
     </>
   );
-};
-
-export default ProfileSettings;
+}
