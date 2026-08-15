@@ -8,6 +8,7 @@ import {
 } from "firebase/storage";
 import { useAuth } from "../../auth-context";
 import { db, storage } from "../../base";
+import { demoMode } from "../../config";
 import type {
   EntryCollection,
   EntryKind,
@@ -22,6 +23,15 @@ interface NewEntryProps {
 }
 
 const ratingOptions = [1, 2, 3, 4, 5] as const;
+
+function readAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(String(reader.result)));
+    reader.addEventListener("error", () => reject(reader.error));
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function NewEntry({
   collectionName,
@@ -68,10 +78,16 @@ export default function NewEntry({
     setError("");
 
     try {
-      const imagePath = `images/${currentUser.uid}/${crypto.randomUUID()}-${file.name}`;
-      const imageReference = storageReference(storage, imagePath);
-      await uploadBytes(imageReference, file, { contentType: file.type });
-      const imageUrl = await getDownloadURL(imageReference);
+      let imageUrl: string;
+      if (demoMode) {
+        imageUrl = await readAsDataUrl(file);
+      } else {
+        const imagePath = `images/${currentUser.uid}/${crypto.randomUUID()}-${file.name}`;
+        const imageReference = storageReference(storage, imagePath);
+        await uploadBytes(imageReference, file, { contentType: file.type });
+        imageUrl = await getDownloadURL(imageReference);
+      }
+
       const added = Timestamp.now();
       const entryData = {
         owner: currentUser.displayName || currentUser.email || "Unknown",
@@ -84,9 +100,11 @@ export default function NewEntry({
         imageUrl,
         added,
       };
-      const entryReference = await addDoc(collection(db, collectionName), entryData);
+      const id = demoMode
+        ? crypto.randomUUID()
+        : (await addDoc(collection(db, collectionName), entryData)).id;
 
-      onCreated({ id: entryReference.id, ...entryData });
+      onCreated({ id, ...entryData });
       resetForm(formElement);
       const modalElement = document.getElementById(modalId);
       if (modalElement) Modal.getOrCreateInstance(modalElement).hide();

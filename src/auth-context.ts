@@ -1,8 +1,13 @@
 import { createContext, useContext } from "react";
-import type { User } from "firebase/auth";
+
+export interface AppUser {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+}
 
 export interface AuthContextValue {
-  currentUser: User | null;
+  currentUser: AppUser | null;
   loading: boolean;
 }
 

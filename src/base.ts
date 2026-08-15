@@ -7,9 +7,18 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { demoMode } from "./config";
+
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
+
+if (!demoMode && !apiKey) {
+  throw new Error(
+    "Missing VITE_FIREBASE_API_KEY. Add the Firebase web API key to .env.local and restart Vite.",
+  );
+}
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3oNTsQIVZRO94jt7-1uzXQUo2C-tELio",
+  apiKey: apiKey ?? "demo-mode-no-firebase",
   authDomain: "vrate-7a0cd.firebaseapp.com",
   databaseURL: "https://vrate-7a0cd.firebaseio.com",
   projectId: "vrate-7a0cd",
@@ -24,10 +33,13 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-void setPersistence(auth, browserLocalPersistence).catch((error: unknown) => {
-  console.error("Could not enable local authentication persistence.", error);
-});
+if (!demoMode) {
+  void setPersistence(auth, browserLocalPersistence).catch((error: unknown) => {
+    console.error("Could not enable local authentication persistence.", error);
+  });
+}
 
 export function handleSignout(): Promise<void> {
+  if (demoMode) return Promise.resolve();
   return signOut(auth);
 }

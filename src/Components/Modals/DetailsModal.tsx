@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { useAuth } from "../../auth-context";
 import { db } from "../../base";
+import { demoMode } from "../../config";
 import { calculateAverage } from "../../Helpers/calculateAverage";
 import type {
   EntryCollection,
@@ -53,6 +54,25 @@ export default function DetailsModal({
     try {
       const ratings = [...entry.ratings, addedRating];
       const nextAverage = calculateAverage(ratings);
+      const newComment = {
+        id: demoMode ? crypto.randomUUID() : "",
+        comment: addedComment.trim(),
+        userID: currentUser.uid,
+      };
+
+      if (demoMode) {
+        onCommentsChange([...comments, newComment]);
+        onEntryChange({
+          ...entry,
+          rating: nextAverage,
+          ratings,
+          averageRatings: nextAverage,
+        });
+        setAddedComment("");
+        setAddedRating(null);
+        return;
+      }
+
       const commentReference = await addDoc(
         collection(db, collectionName, entry.id, "comments"),
         { comment: addedComment.trim(), userID: currentUser.uid },
@@ -65,11 +85,7 @@ export default function DetailsModal({
 
       onCommentsChange([
         ...comments,
-        {
-          id: commentReference.id,
-          comment: addedComment.trim(),
-          userID: currentUser.uid,
-        },
+        { ...newComment, id: commentReference.id },
       ]);
       onEntryChange({
         ...entry,
@@ -93,6 +109,11 @@ export default function DetailsModal({
   async function deleteComment(comment: EntryComment) {
     setError("");
     try {
+      if (demoMode) {
+        onCommentsChange(comments.filter(({ id }) => id !== comment.id));
+        return;
+      }
+
       await deleteDoc(
         doc(db, collectionName, entry.id, "comments", comment.id),
       );
@@ -107,8 +128,7 @@ export default function DetailsModal({
   }
 
   return (
-    <div className="modal-dialog modal-dialog-scrollable">
-      <form className="modal-content" onSubmit={(event) => void handleSubmit(event)}>
+    <form className="modal-content" onSubmit={(event) => void handleSubmit(event)}>
         <div className="modal-header">
           <h2 className="modal-title fs-5">Rating details for {entry.name}</h2>
           <button
@@ -213,7 +233,6 @@ export default function DetailsModal({
             {submitting ? "Saving…" : "Add rating and comment"}
           </button>
         </div>
-      </form>
-    </div>
+    </form>
   );
 }

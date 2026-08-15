@@ -1,10 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth-context";
 import { auth } from "../base";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const [error, setError] = useState("");
 
   async function handleSignup(event: FormEvent<HTMLFormElement>) {
@@ -29,6 +31,10 @@ export default function SignUp() {
           : "Could not create your account.",
       );
     }
+  }
+
+  if (currentUser) {
+    return <Navigate to="/main" replace />;
   }
 
   return (

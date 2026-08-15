@@ -15,10 +15,21 @@ Android with Capacitor.
 
 ```sh
 npm install
+npm run setup
 npm run dev
 ```
 
 The development server is available at <http://localhost:3000>.
+
+Before starting the app for the first time, copy `.env.example` to `.env.local`
+and replace the placeholder with the `apiKey` from **Firebase Console → Project
+settings → General → Your apps → Web app → Config**. Vite reads environment
+variables at startup, so restart the development server after changing the key.
+
+To work locally without Firebase, set `VITE_DEMO_MODE=true` in `.env.local`.
+Demo mode bypasses authentication and uses in-memory sample entries, comments,
+ratings, and uploads. It is available only through the Vite development server;
+production builds always require Firebase.
 
 ## Quality checks
 

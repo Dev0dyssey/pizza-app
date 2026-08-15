@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { db } from "../base";
+import { demoMode } from "../config";
 import type {
   EntryCollection,
   EntryComment,
@@ -46,21 +47,73 @@ function normalizeEntry(id: string, data: Record<string, unknown>): RatingEntry 
   };
 }
 
+function demoEntries(collectionName: EntryCollection): RatingEntry[] {
+  const added = Timestamp.now();
+
+  if (collectionName === "other-meals") {
+    return [
+      {
+        id: "demo-meal",
+        owner: "Demo User",
+        name: "Truffle pasta",
+        restaurant: "The Demo Kitchen",
+        rating: 4,
+        ratings: [4],
+        averageRatings: 4,
+        comment: "A sample meal available while Firebase is disconnected.",
+        imageUrl: "/logo512.png",
+        added,
+      },
+    ];
+  }
+
+  return [
+    {
+      id: "demo-margherita",
+      owner: "Demo User",
+      name: "Margherita",
+      restaurant: "The Demo Pizzeria",
+      rating: 4.5,
+      ratings: [4, 5],
+      averageRatings: 4.5,
+      comment: "A sample pizza available while Firebase is disconnected.",
+      imageUrl: "/logo512.png",
+      added,
+    },
+    {
+      id: "demo-pepperoni",
+      owner: "Demo User",
+      name: "Pepperoni",
+      restaurant: "Local Slice",
+      rating: 4,
+      ratings: [4],
+      averageRatings: 4,
+      comment: "Demo data is kept only in this browser session.",
+      imageUrl: "/logo192.png",
+      added,
+    },
+  ];
+}
+
 export default function EntryOverview({
   collectionName,
   kind,
   title,
   recentOnly = false,
 }: EntryOverviewProps) {
-  const [entries, setEntries] = useState<RatingEntry[]>([]);
+  const [entries, setEntries] = useState<RatingEntry[]>(() =>
+    demoMode ? demoEntries(collectionName) : [],
+  );
   const [selectedEntry, setSelectedEntry] = useState<RatingEntry | null>(null);
   const [comments, setComments] = useState<EntryComment[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!demoMode);
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [error, setError] = useState("");
   const [now] = useState(Date.now);
 
   useEffect(() => {
+    if (demoMode) return;
+
     let active = true;
 
     async function loadEntries() {
@@ -108,8 +161,20 @@ export default function EntryOverview({
 
   async function selectEntry(entry: RatingEntry) {
     setSelectedEntry(entry);
-    setComments([]);
-    setCommentsLoading(true);
+    setComments(
+      demoMode
+        ? [
+            {
+              id: `demo-comment-${entry.id}`,
+              comment: "This is a local demo comment.",
+              userID: "demo-user",
+            },
+          ]
+        : [],
+    );
+    setCommentsLoading(!demoMode);
+
+    if (demoMode) return;
 
     try {
       const snapshot = await getDocs(
@@ -147,6 +212,11 @@ export default function EntryOverview({
     <>
       <NavBar />
       {title && <h1 className="h3 mb-4">{title}</h1>}
+      {demoMode && (
+        <p className="alert alert-info">
+          Demo mode is active. Firebase is disabled and changes are kept only in memory.
+        </p>
+      )}
       {error && <p className="alert alert-danger">{error}</p>}
       {loading ? (
         <p>Loading entries…</p>
@@ -204,17 +274,19 @@ export default function EntryOverview({
         tabIndex={-1}
         aria-hidden="true"
       >
-        {selectedEntry && (
-          <DetailsModal
-            key={selectedEntry.id}
-            collectionName={collectionName}
-            entry={selectedEntry}
-            comments={comments}
-            commentsLoading={commentsLoading}
-            onCommentsChange={setComments}
-            onEntryChange={updateEntry}
-          />
-        )}
+        <div className="modal-dialog modal-dialog-scrollable">
+          {selectedEntry && (
+            <DetailsModal
+              key={selectedEntry.id}
+              collectionName={collectionName}
+              entry={selectedEntry}
+              comments={comments}
+              commentsLoading={commentsLoading}
+              onCommentsChange={setComments}
+              onEntryChange={updateEntry}
+            />
+          )}
+        </div>
       </div>
 
       <div

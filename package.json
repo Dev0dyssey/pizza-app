@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "vite",
+    "setup": "node scripts/setup-env.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
