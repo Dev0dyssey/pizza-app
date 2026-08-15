@@ -9,23 +9,56 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { demoMode } from "./config";
 
-const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
+const requiredFirebaseSettings = {
+  VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
+  VITE_FIREBASE_AUTH_DOMAIN: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  VITE_FIREBASE_PROJECT_ID: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  VITE_FIREBASE_STORAGE_BUCKET: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  VITE_FIREBASE_MESSAGING_SENDER_ID:
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  VITE_FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
+};
 
-if (!demoMode && !apiKey) {
+const missingFirebaseSettings = Object.entries(requiredFirebaseSettings)
+  .filter(([, value]) => !value)
+  .map(([name]) => name);
+
+if (!demoMode && missingFirebaseSettings.length > 0) {
   throw new Error(
-    "Missing VITE_FIREBASE_API_KEY. Add the Firebase web API key to .env.local and restart Vite.",
+    `Missing Firebase configuration: ${missingFirebaseSettings.join(", ")}. Add the values from Firebase Console to .env.local and restart Vite.`,
   );
 }
 
+function configValue(value: string | undefined, demoValue: string): string {
+  return value ?? demoValue;
+}
+
 const firebaseConfig = {
-  apiKey: apiKey ?? "demo-mode-no-firebase",
-  authDomain: "vrate-7a0cd.firebaseapp.com",
-  databaseURL: "https://vrate-7a0cd.firebaseio.com",
-  projectId: "vrate-7a0cd",
-  storageBucket: "vrate-7a0cd.appspot.com",
-  messagingSenderId: "667991130799",
-  appId: "1:667991130799:web:47f5a6eff1ecd3e5a10a5a",
-  measurementId: "G-3Z0P83DTF2",
+  apiKey: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_API_KEY,
+    "demo-mode-no-firebase",
+  ),
+  authDomain: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_AUTH_DOMAIN,
+    "demo-mode.firebaseapp.com",
+  ),
+  projectId: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_PROJECT_ID,
+    "demo-mode",
+  ),
+  storageBucket: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_STORAGE_BUCKET,
+    "demo-mode.firebasestorage.app",
+  ),
+  messagingSenderId: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    "000000000000",
+  ),
+  appId: configValue(
+    requiredFirebaseSettings.VITE_FIREBASE_APP_ID,
+    "1:000000000000:web:demo",
+  ),
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
