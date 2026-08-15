@@ -1,8 +1,8 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "com.vrate.app",
-  appName: "[name]",
+  appName: "Pizza Rate",
   webDir: "build",
 };
 

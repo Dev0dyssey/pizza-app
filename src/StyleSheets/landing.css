@@ -1,7 +1,7 @@
 .bgImg {
   height: 75vh;
   background-repeat: no-repeat;
-  background-image: url(https://www.pngrepo.com/download/201515/pizza-slice-pizza.png);
+  background-image: url("/logo192.png");
   background-size: 200px 250px;
   background-position-x: 95%;
   background-position-y: 15%;
@@ -23,10 +23,6 @@
   top: 10%;
 }
 
-.resetBtn {
-  color: blue;
-}
-
-.resetBtn:hover {
-  cursor: pointer;
+.auth-panel {
+  max-width: 36rem;
 }
