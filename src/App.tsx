@@ -13,6 +13,7 @@ const OtherMeals = lazy(() => import("./Components/OtherMeals/OtherMeals"));
 const ProfileSettings = lazy(
   () => import("./Components/ProfileSettings/ProfileSettings"),
 );
+const MyGroups = lazy(() => import("./Components/Groups/MyGroups"));
 const SignUp = lazy(() => import("./Components/SignUp"));
 
 function Protected({ children }: { children: ReactElement }) {
@@ -57,6 +58,14 @@ export default function App() {
               element={
                 <Protected>
                   <ProfileSettings />
+                </Protected>
+              }
+            />
+            <Route
+              path="/main/groups"
+              element={
+                <Protected>
+                  <MyGroups />
                 </Protected>
               }
             />

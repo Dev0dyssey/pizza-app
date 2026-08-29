@@ -38,5 +38,6 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
+    exclude: ["**/node_modules/**", "**/build/**", "src/**/*.emulator.test.ts"],
   },
 });

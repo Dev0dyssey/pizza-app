@@ -16,6 +16,11 @@ export interface GroupMember {
   joinedAt?: Timestamp;
 }
 
+export interface GroupMembership {
+  group: Group;
+  member: GroupMember;
+}
+
 export interface GroupNameValidation {
   name: string;
   error: string | null;

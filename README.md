@@ -32,6 +32,34 @@ Demo mode bypasses authentication and uses in-memory sample entries, comments,
 ratings, and uploads. It is available only through the Vite development server;
 production builds always require Firebase.
 
+### Firestore group rules
+
+My Groups needs a Cloud Firestore default database and the version-controlled
+rules in `firestore.rules`. After signing in to the project-local Firebase CLI,
+deploy only those rules with:
+
+```sh
+npm run firebase:login
+npm run firestore:deploy -- --project <your-project-id>
+```
+
+Use the value of `VITE_FIREBASE_PROJECT_ID` from `.env.local` for
+`<your-project-id>`. This deploys the rules and the membership collection-group
+index. The rules deliberately permit only authenticated users to create a group
+together with their own owner membership and to read their own memberships.
+
+Use `npm run firestore:emulator` to test the rules locally. The Firestore
+emulator requires a Java runtime; deployment does not.
+
+Run the automated rules contract with:
+
+```sh
+npm run test:firestore-rules
+```
+
+It uses the emulator and a `demo-*` project, so it never accesses the deployed
+Firebase project.
+
 ## Quality checks
 
 ```sh
