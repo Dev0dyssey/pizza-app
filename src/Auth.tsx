@@ -9,6 +9,7 @@ import { onAuthStateChanged, type User } from "firebase/auth";
 import { AuthContext, type AppUser } from "./auth-context";
 import { auth } from "./base";
 import { demoMode } from "./config";
+import { GroupProvider } from "./Features/Groups/GroupProvider";
 
 const demoUser: AppUser = {
   uid: "demo-user",
@@ -59,5 +60,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [currentUser, loading, refreshCurrentUser],
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      <GroupProvider>{children}</GroupProvider>
+    </AuthContext.Provider>
+  );
 }

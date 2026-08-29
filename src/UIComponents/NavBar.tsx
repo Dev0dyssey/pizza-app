@@ -42,6 +42,11 @@ export default function NavBar() {
               Other meals
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className={linkClass} to="/main/groups">
+              My groups
+            </NavLink>
+          </li>
         </ul>
       </div>
       <NavLink className="btn btn-outline-secondary me-2" to="/main/profilesettings">

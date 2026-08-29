@@ -26,7 +26,12 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "firebase:login": "firebase login",
+    "firestore:deploy": "firebase deploy --only firestore",
+    "firestore:deploy-rules": "firebase deploy --only firestore:rules",
+    "firestore:emulator": "firebase emulators:start --only firestore",
+    "test:firestore-rules": "firebase emulators:exec --only firestore \"vitest --config vite.rules.config.ts run\""
   },
   "browserslist": {
     "production": [
@@ -43,6 +48,7 @@
   "devDependencies": {
     "@capacitor/cli": "^8.5.0",
     "@eslint/js": "^10.0.1",
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -54,6 +60,7 @@
     "eslint": "^10.8.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.4",
+    "firebase-tools": "^15.28.2",
     "globals": "^17.4.0",
     "jsdom": "^29.1.1",
     "sass": "^1.102.0",
