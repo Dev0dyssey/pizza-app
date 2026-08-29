@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
 import {
+  GoogleAuthProvider,
   sendPasswordResetEmail,
+  signInWithPopup,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -8,6 +10,9 @@ import { useAuth } from "../auth-context";
 import { auth } from "../base";
 import { authErrorMessage, normalizeEmail } from "../Features/Auth/authForm";
 import "../StyleSheets/landing.css";
+
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export default function LogIn() {
   const navigate = useNavigate();
@@ -56,6 +61,20 @@ export default function LogIn() {
     }
   }
 
+  async function signInWithGoogle() {
+    setError("");
+    setSubmitting(true);
+
+    try {
+      await signInWithPopup(auth, googleProvider);
+      navigate("/main", { replace: true });
+    } catch (googleError) {
+      setError(authErrorMessage(googleError));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <section className="jumbotron mt-5 mx-auto auth-panel">
       <h1 className="text-center">Pizza Rate</h1>
@@ -88,6 +107,14 @@ export default function LogIn() {
         <div className="d-grid gap-2 col-md-6 mx-auto mt-3">
           <button type="submit" className="btn btn-success" disabled={submitting}>
             {submitting ? "Signing in…" : "Sign in"}
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-secondary"
+            disabled={submitting}
+            onClick={() => void signInWithGoogle()}
+          >
+            Continue with Google
           </button>
           <Link to="/signup" className="btn btn-primary">
             Sign up

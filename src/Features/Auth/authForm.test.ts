@@ -42,4 +42,10 @@ describe("account form helpers", () => {
       "We could not sign you in with those details.",
     );
   });
+
+  it("explains Google popup failures without exposing provider details", () => {
+    expect(authErrorMessage({ code: "auth/popup-closed-by-user" })).toBe(
+      "Google sign-in was cancelled.",
+    );
+  });
 });

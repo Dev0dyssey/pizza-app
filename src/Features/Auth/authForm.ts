@@ -82,6 +82,12 @@ export function authErrorMessage(error: unknown): string {
       return "Too many attempts. Please wait a moment and try again.";
     case "auth/network-request-failed":
       return "We could not reach the service. Check your connection and try again.";
+    case "auth/popup-closed-by-user":
+      return "Google sign-in was cancelled.";
+    case "auth/popup-blocked":
+      return "Allow pop-ups for this site, then try Google sign-in again.";
+    case "auth/account-exists-with-different-credential":
+      return "An account already uses this email with another sign-in method.";
     default:
       return "Something went wrong. Please try again.";
   }
