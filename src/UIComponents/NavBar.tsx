@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { handleSignout } from "../base";
+import ActiveGroupSelector from "./ActiveGroupSelector";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `nav-link${isActive ? " active" : ""}`;
@@ -48,6 +49,7 @@ export default function NavBar() {
             </NavLink>
           </li>
         </ul>
+        <ActiveGroupSelector />
       </div>
       <NavLink className="btn btn-outline-secondary me-2" to="/main/profilesettings">
         Profile
