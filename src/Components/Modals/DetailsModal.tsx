@@ -24,6 +24,7 @@ interface DetailsModalProps {
   commentsLoading: boolean;
   onCommentsChange: (comments: EntryComment[]) => void;
   onEntryChange: (entry: RatingEntry) => void;
+  readOnly?: boolean;
 }
 
 const ratingOptions = [1, 2, 3, 4, 5] as const;
@@ -35,6 +36,7 @@ export default function DetailsModal({
   commentsLoading,
   onCommentsChange,
   onEntryChange,
+  readOnly = false,
 }: DetailsModalProps) {
   const { currentUser } = useAuth();
   const [addedComment, setAddedComment] = useState("");
@@ -47,7 +49,7 @@ export default function DetailsModal({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!currentUser || addedRating === null || !addedComment.trim()) return;
+    if (readOnly || !currentUser || addedRating === null || !addedComment.trim()) return;
 
     setSubmitting(true);
     setError("");
@@ -153,29 +155,31 @@ export default function DetailsModal({
           </p>
           {entry.comment && <p>{entry.comment}</p>}
 
-          <fieldset className="mb-3">
-            <legend className="fs-6">Your rating</legend>
-            {ratingOptions.map((value) => {
-              const id = `rating-${entry.id}-${value}`;
-              return (
-                <div className="form-check form-check-inline" key={value}>
-                  <input
-                    required
-                    className="form-check-input"
-                    type="radio"
-                    name={`rating-${entry.id}`}
-                    id={id}
-                    value={value}
-                    checked={addedRating === value}
-                    onChange={() => setAddedRating(value)}
-                  />
-                  <label className="form-check-label" htmlFor={id}>
-                    {value}
-                  </label>
-                </div>
-              );
-            })}
-          </fieldset>
+          {!readOnly && (
+            <fieldset className="mb-3">
+              <legend className="fs-6">Your rating</legend>
+              {ratingOptions.map((value) => {
+                const id = `rating-${entry.id}-${value}`;
+                return (
+                  <div className="form-check form-check-inline" key={value}>
+                    <input
+                      required
+                      className="form-check-input"
+                      type="radio"
+                      name={`rating-${entry.id}`}
+                      id={id}
+                      value={value}
+                      checked={addedRating === value}
+                      onChange={() => setAddedRating(value)}
+                    />
+                    <label className="form-check-label" htmlFor={id}>
+                      {value}
+                    </label>
+                  </div>
+                );
+              })}
+            </fieldset>
+          )}
 
           <section aria-labelledby="comments-title">
             <h3 className="fs-5" id="comments-title">
@@ -191,7 +195,7 @@ export default function DetailsModal({
                     key={comment.id}
                   >
                     <span>{comment.comment}</span>
-                    {comment.userID === currentUser?.uid && (
+                    {!readOnly && comment.userID === currentUser?.uid && (
                       <button
                         type="button"
                         className="btn btn-sm btn-outline-danger"
@@ -209,29 +213,35 @@ export default function DetailsModal({
             )}
           </section>
 
-          <label htmlFor={`comment-${entry.id}`} className="form-label">
-            Add a comment
-          </label>
-          <textarea
-            required
-            className="form-control"
-            id={`comment-${entry.id}`}
-            value={addedComment}
-            onChange={(event) => setAddedComment(event.target.value)}
-          />
+          {!readOnly && (
+            <>
+              <label htmlFor={`comment-${entry.id}`} className="form-label">
+                Add a comment
+              </label>
+              <textarea
+                required
+                className="form-control"
+                id={`comment-${entry.id}`}
+                value={addedComment}
+                onChange={(event) => setAddedComment(event.target.value)}
+              />
+            </>
+          )}
           {error && <p className="alert alert-danger mt-3 mb-0">{error}</p>}
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={submitting || addedRating === null || !addedComment.trim()}
-          >
-            {submitting ? "Saving…" : "Add rating and comment"}
-          </button>
+          {!readOnly && (
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submitting || addedRating === null || !addedComment.trim()}
+            >
+              {submitting ? "Saving…" : "Add rating and comment"}
+            </button>
+          )}
         </div>
     </form>
   );
