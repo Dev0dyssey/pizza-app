@@ -60,13 +60,47 @@ service cloud.firestore {
 
         allow delete: if false;
       }
+
+      match /pizzas/{entryId} {
+        allow read: if isGroupMember(groupId);
+
+        match /comments/{commentId} {
+          allow read: if isGroupMember(groupId);
+        }
+      }
+
+      match /meals/{entryId} {
+        allow read: if isGroupMember(groupId);
+
+        match /comments/{commentId} {
+          allow read: if isGroupMember(groupId);
+        }
+      }
     }
 
     // Collection-group queries must be explicitly allowed in Rules v2.
     match /{path=**}/members/{userId} {
       allow get: if isSignedIn() && userId == request.auth.uid;
       allow list: if isSignedIn()
-        && resource.data.userId == request.auth.uid;
+          && resource.data.userId == request.auth.uid;
+    }
+
+    // Pre-group content remains a signed-in, shared example. It is deliberately
+    // read-only: all writes continue to fall through to the default deny.
+    match /pizza-collection/{entryId} {
+      allow read: if isSignedIn();
+
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+      }
+    }
+
+    match /other-meals/{entryId} {
+      allow read: if isSignedIn();
+
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+      }
     }
   }
 }
